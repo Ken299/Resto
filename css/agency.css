@@ -788,7 +788,10 @@ body {
   webkit-tap-highlight-color: #9b0101;
 }
 .bg-stuff{
-	background-color: #563329;
+	background-color: #2C0B00;
+	border-style: solid;
+    border-width: 1px;
+	border-color: #381103;
 }
 .bg-light-gray {
   background-color: #1a0000;
