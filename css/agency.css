@@ -42,14 +42,6 @@ h1,h2,h3,h4,h5,h6 {
   margin: 0 auto;
 }
 
-.bg-light-gray {
-  background-color: #1a0000;
-}
-
-.bg-darkest-gray {
-  background-color: #330000;
-}
-
 .btn-primary {
   color: #fff;
   background-color: #fed136;
@@ -583,7 +575,9 @@ section h3.section-subheading {
 aside.clients img {
   margin: 50px auto;
 }
-
+section#sponsors{
+	padding:30px;
+}
 section#contact {
   background-color: #222;
   background-image: url(../img/map-image.png);
@@ -791,4 +785,14 @@ img::-moz-selection {
 
 body {
   webkit-tap-highlight-color: #fed136;
+}
+.bg-stuff{
+	background-color: #563329;
+}
+.bg-light-gray {
+  background-color: #1a0000;
+}
+
+.bg-darkest-gray {
+  background-color: #462217;
 }
