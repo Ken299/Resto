@@ -1,0 +1,9 @@
+CREATE TABLE bronn(
+	bronn_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	arv INT(3),
+	nimi VARCHAR(20),
+	email VARCHAR(30),
+	kuupaev VARCHAR(10),
+	aeg VARCHAR(10),
+	confirmed TINYINT (1) DEFAULT 0
+);
