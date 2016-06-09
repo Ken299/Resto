@@ -14,6 +14,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<title>Admin page</title>
+	<script>
+		$(document).ready(function(){
+			$(".confirmBtn").click(function(event){
+				request = $.ajax({
+					url: "confirm.php",
+					type: "post",
+					data: {
+							id: this.name
+						  }
+				});
+				
+				request.done(function (response, textStatus, jqXHR){
+					$("#bronniTabel").load("admin.php #bronniTabel");
+					console.log(response);
+				});
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="page-header">
@@ -45,7 +63,7 @@
 			?>
 		</table>
 		<h1>Broneeringud</h1>
-		<table border='1' padding='5px'>
+		<table id="bronniTabel" border='1' padding='5px'>
 			<tr>
 				<th>Inimeste arv</th>
 				<th>Eesnimi</th>
@@ -59,7 +77,7 @@
 			</tr>
 			<?php
 				$yhendus=new mysqli("localhost", "if13", "ifikad", "if13_mikkottis");
-				$stmt = $yhendus->prepare("SELECT * FROM bronn");
+				$stmt = $yhendus->prepare("SELECT * FROM bronn WHERE confirmed = 0");
 				$stmt->bind_result($bronn_ID, $arv, $nimi, $email, $telefon, $kuupaev, $aeg, $lisa, $confirmed);
 				$stmt->execute();
 				while($stmt->fetch()){
@@ -73,7 +91,7 @@
 							<td>$aeg</td>
 							<td>$lisa</td>
 							<td>$confirmed</td>
-							<td><button>Kinnita broneering</button></td>
+							<td><button class='confirmBtn' name=$bronn_ID id='kinnitus'>Kinnita broneering</button></td>
 						</tr>
 					";
 				}
