@@ -8,11 +8,15 @@
 			Bronni testimine
 		</title>
 		<script>
+			var request;
+
 			$(function() {
-				$( "#datepicker" ).datepicker();
+				$("#datepicker").datepicker({
+					dateFormat: "dd/mm/yy"
+				});
 			});
 			
-			function showSeats(str){
+			function showAvailability(str){
 				if (window.XMLHttpRequest) {
 					xmlhttp = new XMLHttpRequest();
 				} else {
@@ -26,49 +30,87 @@
 				xmlhttp.open("GET","getdates.php?q="+str,true);
 				xmlhttp.send();
 			}
+			
+			$(document).ready(function(){
+				$('#datepicker').bind("paste",function(e) {
+					e.preventDefault();
+				});
+				
+				$("#bronni").submit(function(event){
+					var $form = $(this);
+					var $inputs = $form.find("input, select, button, textarea");
+					var serializedData = $form.serialize();
+
+					$inputs.prop("disabled", true);
+
+					request = $.ajax({
+						url: "reserving.php",
+						type: "post",
+						data: serializedData
+					});
+
+					request.done(function (response, textStatus, jqXHR){
+						document.getElementById("txt_result").innerHTML = "Broneering tehtud!";
+						$("#bronni")[0].reset();
+					});
+					
+					request.fail(function (jqXHR, textStatus, errorThrown){
+						document.getElementById("txt_result").innerHTML = "The following error occurred: "+textStatus, errorThrown;
+					});
+					
+					request.always(function() {
+						$inputs.prop("disabled", false);
+					});
+					
+					event.preventDefault();
+
+				});
+			});
 		</script>
 	</head>
 	<body>
-		<form action="reserving.php" method="post">
-			<datalist id="list_tunnid">
-				<option value="8">
-				<option value="9">
-				<option value="10">
-				<option value="11">
-				<option value="12">
-				<option value="13">
-				<option value="14">
-				<option value="15">
-				<option value="16">
-				<option value="17">
-				<option value="18">
-				<option value="19">
-				<option value="20">
-				<option value="21">
-			</datalist>
-			
-			<datalist id="list_mins">
-				<option value="00">
-				<option value="10">
-				<option value="20">
-				<option value="30">
-				<option value="40">
-				<option value="50">
-			</datalist>
-		
+		<form id="bronni">
 			<p>Nimi:</p> 
-			<input type="text" name="name" id="name">
+			<input type="text" name="name" id="name" pattern="[a-zA-Z]*" required>
 			<p>Arv:</p>
-			<input type="text" name="arv" id="arv">		
+			<input type="number" name="arv" id="arv" required>		
 			<p>E-mail:</p>
-			<input type="text" name="email" id="email">
+			<input type="email" name="email" id="email" required>
+			<p>Telefon:</p>
+			<input type="number" name="telefon" id="telefon" required>
 			<p>Kuupäev:</p>
-			<input type="text" onchange="showSeats(this.value)" name="kuupaev" id="datepicker">
+			<input type="text" onchange="showAvailability(this.value)" name="kuupaev" id="datepicker">
 			<p id="txt_seats"></p>
 			<p>Aeg:</p>
-			<input list="list_tunnid" name="tunnid" id="tunnid"> :
-			<input list="list_mins" name="minutid" id="minutid"></br></br>
+			<select name="tunnid" id="tunnid">
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+			</select> :
+			<select name="minutid" id="minutid">
+				<option value="00">00</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="40">40</option>
+				<option value="50">50</option>
+			</select>
+			<p>Lisainfo:</p>
+			<textarea rows="4" cols="40" name="lisainfo" id="lisainfo"></textarea></br></br>
+			
 			<input type="submit" value="Broneeri">
+			<p id="txt_result"></p>
 		</form>
 	</body>
 
