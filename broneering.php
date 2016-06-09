@@ -71,7 +71,7 @@
 	<body>
 		<form id="bronni">
 			<p>Nimi:</p> 
-			<input type="text" name="name" id="name" pattern="[a-zA-Z]*" required>
+			<input type="text" name="name" id="name" required>
 			<p>Arv:</p>
 			<input type="number" name="arv" id="arv" required>		
 			<p>E-mail:</p>
@@ -79,7 +79,7 @@
 			<p>Telefon:</p>
 			<input type="number" name="telefon" id="telefon" required>
 			<p>Kuupäev:</p>
-			<input type="text" onchange="showAvailability(this.value)" name="kuupaev" id="datepicker">
+			<input type="text" onchange="showAvailability(this.value)" name="kuupaev" id="datepicker" required>
 			<p id="txt_seats"></p>
 			<p>Aeg:</p>
 			<select name="tunnid" id="tunnid">
