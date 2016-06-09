@@ -1,6 +1,6 @@
 <?php
 	
-	require_once("functions.php");
+	require_once("php/functions.php");
 	
 	if(isset($_SESSION["id_from_db"])){
 		// kui on,suunan data lehele

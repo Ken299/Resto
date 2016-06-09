@@ -1,5 +1,5 @@
 <?php
-	require_once('functions.php');
+	require_once('php/functions.php');
 	if(!isset($_SESSION["id_from_db"])){
 		// kui on,suunan data lehele
 		header("Location: login.php");
@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="page-header">
-		<li class="menu-item"><a href="logout.php" class="menu-link">Logi välja</a></li>
+		<li class="menu-item"><a href="php/logout.php" class="menu-link">Logi välja</a></li>
 	</div>
 	<div id="table-view">
 		<h1>Lauad</h1>
