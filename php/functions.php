@@ -1,6 +1,6 @@
 <?php
-	require_once('config.php');
-	require_once('User.class.php');
+	require_once('php/config.php');
+	require_once('php/User.class.php');
 	
 	session_start();
 	$mysqli = new mysqli($servername, $server_username, $server_password, $database);
