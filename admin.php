@@ -44,6 +44,42 @@
 				}
 			?>
 		</table>
+		<h1>Broneeringud</h1>
+		<table border='1' padding='5px'>
+			<tr>
+				<th>Inimeste arv</th>
+				<th>Eesnimi</th>
+				<th>Email</th>
+				<th>Telefon</th>
+				<th>Kuupäev</th>
+				<th>Aeg</th>
+				<th>Lisa</th>
+				<th>Kinnitatud</th>
+				<th>Kinnita</th>
+			</tr>
+			<?php
+				$yhendus=new mysqli("localhost", "if13", "ifikad", "if13_mikkottis");
+				$stmt = $yhendus->prepare("SELECT * FROM bronn");
+				$stmt->bind_result($bronn_ID, $arv, $nimi, $email, $telefon, $kuupaev, $aeg, $lisa, $confirmed);
+				$stmt->execute();
+				while($stmt->fetch()){
+					echo "
+						<tr>
+							<td>$arv</td>
+							<td>$nimi</td>
+							<td>$email</td>
+							<td>$telefon</td>
+							<td>$kuupaev</td>
+							<td>$aeg</td>
+							<td>$lisa</td>
+							<td>$confirmed</td>
+							<td><button>Kinnita broneering</button></td>
+						</tr>
+					";
+				}
+			?>
+			
+		</table>
 	</div>
 	
 </body>
