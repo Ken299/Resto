@@ -740,7 +740,7 @@ $.ajax({
 	<!-- Google map --->
 	<section id="googlemap" class="bg-stuff">
 		<h2 align="center" class="section-heading">Meie asukoht</h2>
-		<div class="container" id="map" style="width:1200px;height:480px;"></div>
+		<div class="container" id="map"></div>
 	</section>
 	<script>
       function initMap() {
@@ -748,7 +748,10 @@ $.ajax({
         var mapDiv = document.getElementById('map');
         var map = new google.maps.Map(mapDiv, {
           center: asukoht,
-          zoom: 16
+          zoom: 16,
+		  scaleControl: false,
+		  draggable: true,
+		  scrollwheel: false
         });
 		var marker = new google.maps.Marker({
 		position: asukoht,
@@ -760,7 +763,7 @@ $.ajax({
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 	
 	<!-- Google map lõpp ---->
-	
+
     <footer>
         <div class="container">
             <div class="row">
