@@ -580,10 +580,7 @@ section#sponsors{
 	padding:50px;
 }
 section#contact {
-  background-color: #222;
-  background-image: url(../img/map-image.png);
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #1a0000;
 }
 
 section#contact .section-heading {
