@@ -801,6 +801,18 @@ body {
 	width: 1200px;
 	height: 480px;
 }
+@media (max-width:1200px){
+	#map{
+		width: 600px;
+		height: 300px;
+	}
+}
+@media (max-width:600px){
+	#map{
+		width: 330px;
+		height: 300px;
+	}
+}
 @media only screen and (max-device-width: 800px) {
 	#map {
 		width: 330px;
