@@ -797,3 +797,13 @@ body {
 .bg-darkest-gray {
   background-color: #462217;
 }
+#map{
+	width: 1200px;
+	height: 480px;
+}
+@media only screen and (max-device-width: 800px) {
+	#map {
+		width: 330px;
+		height: 300px;
+	}
+}
