@@ -374,7 +374,7 @@ google_ad_height = 90;
         
         <script>
         
-        var folder = "images/";
+        /*var folder = "/images/";
 
 $.ajax({
             url: "getImages.php",
@@ -386,14 +386,31 @@ $.ajax({
                     console.log("vitt");
                 });
             }
-        });  
-        
+        });  */
+        var dir = "images/";
+var fileextension = ".jpg";
+$.ajax({
+    //This will retrieve the contents of the folder if the folder is configured as 'browsable'
+    url: dir,
+    success: function (data) {
+        //List all .png file names in the page
+        $(data).find("a:contains(" + fileextension + ")").each(function () {
+            var filename = this.href.replace(window.location, "").replace("http://", "");
+			//var filename = $(this).attr("href");
+            $('.row3').append("<a href=''> <img src='" + dir + filename+ "'></a>");
+			//$("pildid33").html(filename).appendTo("pildid33");
+        });
+    }
+});
         
         </script>
+        <ul>
         
-        
-        
-        <ul class="row">
+        <li class="row3" >
+		
+		</li>
+		</ul>
+        <!--<ul class="row">
             <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
                 <img class="img-responsive" src="images/photodune-174908-rocking-the-night-away-xs.jpg">
             </li>
@@ -466,7 +483,7 @@ $.ajax({
             <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
                 <img class="img-responsive" src="images/photodune-682990-online-search-xs.jpg">
             </li>
-          </ul>             
+          </ul>      -->       
     </div> <!-- /container -->
     
      
