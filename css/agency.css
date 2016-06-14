@@ -819,3 +819,11 @@ body {
 		height: 300px;
 	}
 }
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    display:none;
+    }
