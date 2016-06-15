@@ -8,7 +8,7 @@
 		//objekt et saata tagasi kas errori(id,message) või success(message)
 		$response = new StdClass();
 		
-		$stmt = $this->connection->prepare("SELECT username FROM restokasutajad WHERE username = ?");
+		$stmt = $this->connection->prepare("SELECT username FROM users WHERE username = ?");
 		$stmt->bind_param("s", $create_uname);
 		$stmt->execute();
 		if($stmt->fetch()){
@@ -24,7 +24,7 @@
 		//elmine käsk kinni
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("INSERT INTO restokasutajad (username, password) VALUES (?, ?)");
+		$stmt = $this->connection->prepare("INSERT INTO users (username, password, rights) VALUES (?, ?, '1')");
 		$stmt->bind_param("ss", $create_uname, $create_pw);
 		if($stmt->execute()){
 			//salvestas edukalt
