@@ -1,0 +1,18 @@
+#images {
+	overflow: auto;
+	width: 1000px;
+	height: 275px;
+}
+
+#images > img {
+	border-style: solid;
+	border-width: 1px;
+	padding: 1px;
+	margin: 5px;
+	width: 200px;
+	height: 200px;
+}
+
+#sisestus {
+	margin-top: 10px;
+}
