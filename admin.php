@@ -1,10 +1,13 @@
 <?php
 	require_once('php/functions.php');
-	if(!isset($_SESSION["rights"])){
+	if(($_SESSION["rights"])!=1){
 		// kui on,suunan data lehele
 		header("Location: login.php");
 		exit();
 	}
+		//header("Location: login.php");
+		//exit();
+	
 	//muutujad errorite jaoks
 	$create_uname_error = $create_pw_error = $uname_error = $pw_error = "";
 	//muutujad väärtuste joks

@@ -1,9 +1,13 @@
 <?php
 	require_once("php/functions.php");
-	
-	if(isset($_SESSION["id_from_db"])){
+	if($_SESSION["rights"]==1){
 		// kui on,suunan data lehele
+//		echo "suunab admin lehele";
 		header("Location: admin.php");
+		exit();
+	}elseif($_SESSION["rights"]==2){
+		// kui on,suunan data lehele
+		header("Location: broneeringud.php");
 		exit();
 	}
 	
@@ -61,18 +65,17 @@
 			$login_response = $User->loginUser($uname, $password_hash);
 			if(isset($login_response->success)){
 				//läks edukalt, peab sessiooni salvestama
-				//$_SESSION["id_from_db"] = $login_response->success->user->id;
 				print_r($login_response);
 				$_SESSION["rights"] = $login_response->success->user->rights;
 					if($_SESSION["rights"]==1){
 						echo "broneeringu lehele2";
 						header("Location:admin.php");
-						
+						exit();
 					}
 					if($_SESSION["rights"]==2){
 						echo "broneeringu lehele";
 						header("Location:broneeringud.php");
-					
+						exit();
 					}
 					
 				
