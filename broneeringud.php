@@ -1,6 +1,6 @@
 <?php
 	require_once('php/functions.php');
-	if(!isset($_SESSION["id_from_db"])){
+	if(!isset($_SESSION["rights"])){
 		// kui on,suunan data lehele
 		header("Location: login.php");
 		exit();
@@ -15,7 +15,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	<title>Admin page</title>
+	<title>Broneeringute leht</title>
 	<script>
 	
 		

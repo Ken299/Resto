@@ -4,7 +4,7 @@
 		function __construct($mysqli){
 			$this->connection = $mysqli;
 		}
-		function createUser($create_uname, $create_pw){
+		function createUser($create_uname, $create_pw, $rights){
 		//objekt et saata tagasi kas errori(id,message) või success(message)
 		$response = new StdClass();
 		
@@ -24,8 +24,8 @@
 		//elmine käsk kinni
 		$stmt->close();
 		
-		$stmt = $this->connection->prepare("INSERT INTO users (username, password, rights) VALUES (?, ?, '1')");
-		$stmt->bind_param("ss", $create_uname, $create_pw);
+		$stmt = $this->connection->prepare("INSERT INTO users (username, password, rights) VALUES (?, ?, ?)");
+		$stmt->bind_param("sss", $create_uname, $create_pw, $rights);
 		if($stmt->execute()){
 			//salvestas edukalt
 			$success = new StdClass();
@@ -41,43 +41,45 @@
 		}
 		$stmt->close();
 		return $response;
-	}
+		}
 		function loginUser($uname, $pw){
-		$response = new StdClass();
-		$stmt = $this->connection->prepare("SELECT id FROM restokasutajad WHERE username=?");
-		$stmt->bind_param("s", $uname);
-		$stmt->execute();
-		if(!$stmt->fetch()){
-			// saadan tagasi errori
-			$error = new StdClass();
-			$error->id = 2;
-			$error->message = "Sellise kasutajanimega kasutajat ei ole";
-			
-			//panen errori responsile külge
-			$response->error = $error;
-			// pärast returni enam koodi edasi ei vaadata funktsioonis
+			$response = new StdClass();
+			$stmt = $this->connection->prepare("SELECT id FROM users WHERE username=?");
+			$stmt->bind_param("s", $uname);
+			$stmt->execute();
+			if(!$stmt->fetch()){
+				// saadan tagasi errori
+				$error = new StdClass();
+				$error->id = 2;
+				$error->message = "Sellise kasutajanimega kasutajat ei ole";
+				
+				//panen errori responsile külge
+				$response->error = $error;
+				// pärast returni enam koodi edasi ei vaadata funktsioonis
+				return $response;
+			}
+			$stmt->close();
+		
+			$stmt = $this->connection->prepare("SELECT rights FROM users WHERE username=? AND password=?");
+			$stmt->bind_param("ss", $uname, $pw);
+			$stmt->bind_result($rights);
+			$stmt->execute();
+			if($stmt->fetch()){
+				$success = new StdClass();
+				$success->message = "Sisselogimine õnnestus";
+				$user = new StdClass();
+				//$user->id = $id_from_db;
+				$user->rights = $rights;
+				//$success->user = $user;
+				$success->user = $user;
+				$response->success = $success;
+			}else{
+				$error = new StdClass();
+				$error->id = 3;
+				$error->message = "Vale parool";
+				$response->error = $error;
+			}
+			$stmt->close();
 			return $response;
 		}
-		$stmt->close();
-		
-		$stmt = $this->connection->prepare("SELECT id FROM restokasutajad WHERE username=? AND password=?");
-		$stmt->bind_param("ss", $uname, $pw);
-		$stmt->bind_result($id_from_db);
-		$stmt->execute();
-		if($stmt->fetch()){
-			$success = new StdClass();
-			$success->message = "Sisselogimine õnnestus";
-			$user = new StdClass();
-			$user->id = $id_from_db;
-			$success->user = $user;
-			$response->success = $success;
-		}else{
-			$error = new StdClass();
-			$error->id = 3;
-			$error->message = "Vale parool";
-			$response->error = $error;
-		}
-		$stmt->close();
-		return $response;
-	}
 	}
