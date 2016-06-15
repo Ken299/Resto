@@ -11,6 +11,15 @@
 
     <title>Restoran</title>
 
+	
+	<!-- Page preload effect -->
+	
+	<link rel="stylesheet" type="text/css" href="css/normalize_pageload.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo_pageload.css" />
+	<link rel="stylesheet" type="text/css" href="css/effect1_pageload.css" />
+	<script src="js/modernizr.custom_pageload.js"></script>
+	
+	
     <!-- üldine css -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -25,13 +34,29 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/style1.css" />
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+   
     
 
 </head>
 
 <body id="page-top" class="index">
 
+	<!-- load animatsioon -->
+	<div id="ip-container" class="ip-container">
+			<!-- initial header -->
+			<header class="ip-header">
+				<h1 class="ip-logo">
+					<h1 class="ip-logo">
+					<img src="img/relatedposts/manna.png" alt="mannalogo"/>
+				</h1>
+				</h1>
+				<div class="ip-loader">
+					<svg class="ip-inner" width="60px" height="60px" viewBox="0 0 80 80">
+						<path class="ip-loader-circlebg" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"/>
+						<path id="ip-loader-circle" class="ip-loader-circle" d="M40,10C57.351,10,71,23.649,71,40.5S57.351,71,40.5,71 S10,57.351,10,40.5S23.649,10,40.5,10z"/>
+					</svg>
+				</div>
+			</header>
     <!-- navigeerimine -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -77,6 +102,7 @@
       
     </nav>
 
+	</div>
     <!-- header -->
     <body id="page">
         <ul class="cb-slideshow">
@@ -615,7 +641,9 @@
     
     
     <!-- tagasi yles nupp lõpp -->
-    
+    <!-- preload effect -->
+	<script src="js/pathLoader_pageload.js"></script>
+	<script src="js/main_pageload.js"></script>
     
     
     </body>
