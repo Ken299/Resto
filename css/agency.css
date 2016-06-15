@@ -12,7 +12,7 @@ body {
 }
 
 p {
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.75;
 }
 
@@ -181,7 +181,7 @@ h1,h2,h3,h4,h5,h6 {
   }
 
   .navbar-default.navbar-shrink {
-    background-color: #252839;
+    background-color: rgba(37, 40, 57, 0.81);
 
     padding: 10px 0;
   }
@@ -192,7 +192,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 header {
-  
+  background-image: url(../img/header-bg.jpg);
   background-repeat: none;
   background-attachment: scroll;
   background-position: center center;
@@ -581,7 +581,7 @@ section#sponsors{
 	padding:50px;
 }
 section#contact {
-  background-color: #b5b5b7;
+  background-color: rgba(181, 181, 183, 0);
 }
 
 section#contact .section-heading {
@@ -786,16 +786,16 @@ body {
   webkit-tap-highlight-color: #f2b632;
 }
 .bg-stuff{
-	background-color: #677077;
+	background-color: rgba(103, 112, 119, 0);
 	
 	border-color: #381103;
 }
 .bg-light-gray {
-  background-color: #b5b5b7;
+  background-color: rgba(181, 181, 183, 0);
 }
 
 .bg-darkest-gray {
-  background-color: #462217;
+  background-color: rgba(70, 34, 23, 0);
 }
 #map{
 	width: 1200px;

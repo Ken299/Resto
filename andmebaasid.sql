@@ -9,3 +9,10 @@ CREATE TABLE bronn(
 	lisa TEXT,
 	confirmed TINYINT (1) DEFAULT 0
 );
+
+CREATE TABLE postitused(
+	post_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	img VARCHAR(150),
+	pealkiri VARCHAR(50),
+	sisu MEDIUMTEXT
+);
