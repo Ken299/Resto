@@ -9,15 +9,16 @@
 	$sql->bind_result($bronn_ID, $lisa, $aeg, $arv, $kuupaev);
 	$sql->execute();
 	$sql->fetch();
-	echo $bronn_ID;
-	echo " ";
-	echo $aeg;
-	echo " ";
-	echo $arv;
-	echo " ";
-	echo $kuupaev;
-	echo " ";
-	echo $lisa;
+	$response = "
+		<tr>
+			<td align=center><input style='width: 100%; height: 100%; border: none' id ='arvVal' value=$arv /></td>
+			<td align=center><input style='width: 100%; height: 100%; border: none' id='aegVal' value=$aeg /></td>
+			<td align=center><input style='width: 100%; height: 100%; border: none' class='kuupaevVal' type='text' name='kuupaevVal' id='datepicker' onmousedown='datepick();' value=$kuupaev ></td>
+			<td align=center><textarea id='textareaVal' style='width: 100%; height: 100%; border: none'>$lisa</textarea> </td>
+		</tr>
+		
+	";
+	echo json_encode(array($bronn_ID, $response));
 	
 
 	mysqli_close($yhendus);

@@ -41,34 +41,34 @@
 					if (selectedDate.getTime() < currentDate.getTime()) {
 						$("#error_date").text("Valitud päev on juba möödunud");
 						$("#btn_submit")[0].disabled = true;
-					} else if (selectedDate.getTime() > currentDate.getTime() + 86400000) {
+					} else if (selectedDate.getTime() > currentDate.getTime()) {
 						$("#error_date").empty();
 						$("#btn_submit")[0].disabled = false;
-					} else if (selectedDate.getTime() == currentDate.getTime() + 86400000) {
-						if (curHour < selHour) {
+					} else if (selectedDate.getTime() == currentDate.getTime()) {
+						if (curHour + 1 < selHour) {
 							$("#error_date").empty();
 							$("#btn_submit")[0].disabled = false;
-						} else if (curHour > selHour) {
-							$("#error_date").text("Broneerida saab ainult 24h enne valitud aega.");
+						} else if (curHour + 1 > selHour) {
+							$("#error_date").text("Broneerida saab ainult 1h enne valitud aega.");
 							$("#btn_submit")[0].disabled = true;
 						} else {
 							if (curMin < selMin) {
 								$("#error_date").empty();
 								$("#btn_submit")[0].disabled = false;
 							} else {
-								$("#error_date").text("Broneerida saab ainult 24h enne valitud aega.");
+								$("#error_date").text("Broneerida saab ainult 1h enne valitud aega.");
 								$("#btn_submit")[0].disabled = true;
 							}
 						}
 					} else {
 						$("#btn_submit")[0].disabled = true;
 						if (curHour < selHour) {
-							$("#error_date").text("Broneerida saab ainult 24h enne valitud aega.");
+							$("#error_date").text("Broneerida saab ainult 1h enne valitud aega.");
 						} else if (curHour > selHour) {
 							$("#error_date").text("Valitud aeg on juba möödunud.");
 						} else {
 							if (curMin < selMin) {
-								$("#error_date").text("Broneerida saab ainult 24h enne valitud aega.");
+								$("#error_date").text("Broneerida saab ainult 1h enne valitud aega.");
 							} else {
 								$("#error_date").text("Valitud aeg on juba möödunud.");
 							}
@@ -145,8 +145,8 @@
 			<p id="txt_seats"></p>
 			<p>Aeg:</p>
 			<select name="tunnid" id="tunnid" onchange="showAvailability()">
-				<option value="8">8</option>
-				<option value="9">9</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
 				<option value="10">10</option>
 				<option value="11">11</option>
 				<option value="12">12</option>
