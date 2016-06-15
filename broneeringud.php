@@ -1,6 +1,6 @@
 <?php
 	require_once('php/functions.php');
-	if(!isset($_SESSION["rights"])){
+	if(($_SESSION["rights"])!=2){
 		// kui on,suunan data lehele
 		header("Location: login.php");
 		exit();
