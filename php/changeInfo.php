@@ -13,7 +13,7 @@
 		<tr>
 			<td align=center><input style='width: 100%; height: 100%; border: none' id ='arvVal' value=$arv /></td>
 			<td align=center><input style='width: 100%; height: 100%; border: none' id='aegVal' value=$aeg /></td>
-			<td align=center><input style='width: 100%; height: 100%; border: none' class='kuupaevVal' type='text' name='kuupaevVal' id='datepicker' onmousedown='datepick();' value=$kuupaev ></td>
+			<td align=center><input style='width: 100%; height: 100%; border: none' class='kuupaevVal' type='text' name='kuupaevVal' id='datepicker2' onmousedown='datepick();' value=$kuupaev ></td>
 			<td align=center><textarea id='textareaVal' style='width: 100%; height: 100%; border: none'>$lisa</textarea> </td>
 		</tr>
 		

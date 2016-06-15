@@ -1,5 +1,4 @@
 <?php
-	
 	require_once("php/functions.php");
 	
 	if(isset($_SESSION["id_from_db"])){
@@ -7,6 +6,7 @@
 		header("Location: admin.php");
 		exit();
 	}
+	
 	//muutujad errorite jaoks
 	$create_uname_error = $create_pw_error = $uname_error = $pw_error = "";
 	//muutujad väärtuste joks
@@ -61,8 +61,21 @@
 			$login_response = $User->loginUser($uname, $password_hash);
 			if(isset($login_response->success)){
 				//läks edukalt, peab sessiooni salvestama
-				$_SESSION["id_from_db"] = $login_response->success->user->id;
-				header("Location:admin.php");
+				//$_SESSION["id_from_db"] = $login_response->success->user->id;
+				print_r($login_response);
+				$_SESSION["rights"] = $login_response->success->user->rights;
+					if($_SESSION["rights"]==1){
+						echo "broneeringu lehele2";
+						header("Location:admin.php");
+						
+					}
+					if($_SESSION["rights"]==2){
+						echo "broneeringu lehele";
+						header("Location:broneeringud.php");
+					
+					}
+					
+				
 				//lõpetame php laadimise
 				exit();
 			}
