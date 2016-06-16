@@ -1,8 +1,8 @@
-<?php
+ï»¿<?php
 	require_once('../php/functions.php');
 	if(($_SESSION["rights"])!=3){
 		// kui on,suunan data lehele
-		header("Location: login.php");
+		header("Location: ../login.php");
 		exit();
 	}
 ?>
@@ -18,7 +18,7 @@
 		<script>
 			$(document).ready(function(){
 		
-				// Käivitab TinyMCE liidese koos vajalike seadistustega
+				// KÃ¤ivitab TinyMCE liidese koos vajalike seadistustega
 				tinymce.init({
 								selector: "textarea",
 								width: 1000,
@@ -34,7 +34,7 @@
 				// Laeb alla olemasolevad pildid
 				getImages();
 				
-				// AJAX POST request, et laadida uus pilt üles.
+				// AJAX POST request, et laadida uus pilt Ã¼les.
 				$("#laePilt").on("submit",(function(e) {
 					e.preventDefault();
 					var formData = new FormData(this);
@@ -42,7 +42,7 @@
 					var $form = $(this);
 					var $inputs = $form.find("input, select, button, textarea");
 					
-					// Lukustab inputid kuni request on jõudnud mingi tulemuseni.
+					// Lukustab inputid kuni request on jÃµudnud mingi tulemuseni.
 					$inputs.prop("disabled", true);
 
 					$.ajax({
@@ -54,9 +54,9 @@
 						processData: false,
 						success: function (data) {
 							console.log(data);
-							// Teeb inputi väljad tühjaks
+							// Teeb inputi vÃ¤ljad tÃ¼hjaks
 							$("#laePilt")[0].reset();
-							// Teeb pilte hoidva div'i tühjaks
+							// Teeb pilte hoidva div'i tÃ¼hjaks
 							$("#images").empty();
 							// Laeb uuesti pildid, loodetavasti koos uutega
 							getImages();
@@ -70,6 +70,7 @@
 					});
 				}));
 				
+				// AJAX POST request, et blogisse lisada uus postitus.
 				$("#laePost").on("submit",(function(e) {
 					e.preventDefault();
 					
@@ -104,12 +105,12 @@
 				}));
 			});
 			
-			// Võtab liidese TinyMCE sisu ning paneb selle #sisu inputi, et POST request saaks seda edasi anda.
+			// VÃµtab liidese TinyMCE sisu ning paneb selle #sisu inputi, et POST request saaks seda edasi anda.
 			function editorToString() {
 				$("#sisu").val(tinyMCE.activeEditor.getContent());
 			}
 			
-			// Võtab pildid kaustast.
+			// VÃµtab pildid kaustast.
 			function getImages(forList) {
 				var dir = "uploads/";
 				
@@ -121,7 +122,7 @@
 				});
 			}
 			
-			// Saadud andmete põhjal paneb pildid #images div'i 
+			// Saadud andmete pÃµhjal paneb pildid #images div'i 
 			function displayPics(data, dir) {
 				var i = 0;
 				$(data).find("a:contains(.jpg),a:contains(.jpeg),a:contains(.png)").each(function () {
@@ -135,7 +136,7 @@
 		<li class="menu-item"><a href="../php/logout.php" class="menu-link">Logi vÃ¤lja</a></li>
 	</div>
 	<body>
-		<!-- Form uue pildi üles laadimiseks -->
+		<!-- Form uue pildi Ã¼les laadimiseks -->
 		<form id="laePilt" method="post" enctype="multipart/form-data">
 				<p>Lae uus pilt:</p>
 				<input type="file" name="fileToUpload" id="fileToUpload"></br> </br>
@@ -159,7 +160,7 @@
 			</form> </br>
 		</div>
 		
-		<!-- Siia läheks link blogipostitusele -->
+		<!-- Siia lÃ¤heks link blogipostitusele -->
 		<div id="tulemus"></div>
 	</body>
 </html>
