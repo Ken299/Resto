@@ -65,17 +65,22 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/CustomAdmin.css" />
 <head>
 	<title>Admini leht</title>
 </head>
 <body>
-	<div class="page-header">
-		<p align="right" style="margin-right: 70px;" class="menu-item"><a href="php/logout.php" class="btn btn-success">Logi välja</a></p>
+	<nav class="navbar navbar-inverse">
+	<div class="navbar-header">
+	<p><a href="admin.php"><img src="img/relatedposts/manna.png" width="50px" height="50px"></a><span style="color: white;" class="MVD"> Manna Va Doosa kontohaldus</span></p>
 	</div>
-	<div class="col-md-2 col-md-offset-5">
+	<p align="right" style="margin-right: 40px; margin-top: 15px;"class="menu-item"><a href="php/logout.php" class="btn btn-restoran">Logi välja</a></p>
+	</nav>
+	<br><br><br>
+	<div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 	<div id="register-view">
-<form method="post">
-	<h1>Loo uus konto</h1>
+	<form method="post">
+	<h1 style="color: white;">Loo uus konto</h1>
 	
 	<?php if(isset($create_response->error)):?>
 	<p style="color:red;"><?=$create_response->error->message;?></p>
@@ -84,30 +89,32 @@
 	<?php endif;?>
 	
 	<fieldset class="form-group">
-		<label for="create_uname">Kasutajanimi</label><span class="error" style="color:red;"> <?php echo $create_uname_error?></span>
+		<label for="create_uname" style="color: white;">Kasutajanimi</label><span class="error" style="color:red;"> <?php echo $create_uname_error?></span>
 		<input type="text" class="form-control" name="create_uname" placeholder="Kasutajanimi" value="<?php if(isset($_POST["create_uname"])){echo $create_uname;}?>" />
 	</fieldset>
 	<fieldset class="form-group">	
-		<label for="create_pw">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
+		<label for="create_pw" style="color: white;">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
 		<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
 	</fieldset>
 	<div class="container">
 	  <form role="form" name="rights">
 		<span class="error" style="color:red;"><?php echo $create_radio_error ?></span>
-		<label class="radio-inline">
+		<label class="radio-inline" style="color: white;">
 			<input type="radio" name="optradio" value="1">Admin</input>
 		</label>
-		<label class="radio-inline">
+		<label class="radio-inline" style="color: white;">
 			<input type="radio" name="optradio" value="2">Broneeringud</input>
 		</label>
-		<label class="radio-inline">
+		<label class="radio-inline" style="color: white;">
 			<input type="radio" name="optradio" value="3">Blogi</input>
 		</label>
 	  </form>
 	<div>
-	<input type="submit" class="btn btn-success" name="create" value='Loo konto' style="margin-left: 35%;"/>
+	<input type="submit" class="btn btn-restoran" name="create" value='Loo konto' style="margin-left: 8%; margin-top: 35px;"/>
 	<br><br>
 </form>
+</div>
+</div>
 </div>
 </div>
 </body>
