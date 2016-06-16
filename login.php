@@ -1,19 +1,22 @@
 <?php
 	require_once("php/functions.php");
-	if($_SESSION["rights"]==1){
-		// kui on,suunan data lehele
-//		echo "suunab admin lehele";
-		header("Location: admin.php");
-		exit();
-	}elseif($_SESSION["rights"]==2){
-		// kui on,suunan data lehele
-		header("Location: broneeringud.php");
-		exit();
-	}elseif($_SESSION["rights"]==3){
-		// kui on,suunan data lehele
-		header("Location: blog/blog_post.php");
-		exit();
+	if(isset($_SESSION["rights"])){
+		if($_SESSION["rights"]==1){
+			// kui on,suunan data lehele
+	//		echo "suunab admin lehele";
+			header("Location: admin.php");
+			exit();
+		}elseif($_SESSION["rights"]==2){
+			// kui on,suunan data lehele
+			header("Location: broneeringud.php");
+			exit();
+		}elseif($_SESSION["rights"]==3){
+			// kui on,suunan data lehele
+			header("Location: blog/blog_post.php");
+			exit();
+		}
 	}
+	
 	
 	//muutujad errorite jaoks
 	$create_uname_error = $create_pw_error = $uname_error = $pw_error = "";

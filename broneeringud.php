@@ -66,21 +66,42 @@
 				$stmt->bind_result($bronn_ID, $arv, $nimi, $email, $telefon, $kuupaev, $aeg, $lisa, $confirmed);
 				$stmt->execute();
 				while($stmt->fetch()){
-					echo "
-						<tr>
-							<td>$arv</td>
-							<td>$nimi</td>
-							<td>$email</td>
-							<td>$telefon</td>
-							<td>$kuupaev</td>
-							<td>$aeg</td>
-							<td><textarea readonly style='width: 100%; height: 100%; border: none'>$lisa</textarea></td>
-							<td>$confirmed</td>
-							<td><button class='confirmBtn' name=$bronn_ID id='kinnitus'>Kinnita broneering</button></td>
-							<td><button class='changeInfo' name=$bronn_ID id=$lisa>Muuda lisainfot</button></td>
-							<td><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
-						</tr>
-					";
+					if(isset($_GET["edit"]) && $bronn_ID == $_GET["edit"]){
+						echo "
+							<tr>
+								<td><input style='width: 100%; height: 100%; border: none' id ='arvVal' value=$arv /></td>
+								<td>$nimi</td>
+								<td>$email</td>
+								<td>$telefon</td>
+								<td><input style='width: 100%; height: 100%; border: none' class='kuupaevVal' type='text' name='kuupaevVal' id='datepicker2' onmousedown='datepick();' value=$kuupaev ></td>
+								<td><input style='width: 100%; height: 100%; border: none' id='aegVal' value=$aeg /></td>
+								<td><textarea id='textareaVal' style='width: 100%; height: 100%; border: none'>$lisa</textarea></td>
+								<td>$confirmed</td>
+								<td><button class='confirmBtn' name=$bronn_ID id='kinnitus'>Kinnita broneering</button></td>
+								<td><a href='?' class='confirmInfo' name=$bronn_ID id=$lisa>Salvesta lisainfo</a></td>
+								<td><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
+							</tr>
+						";
+					}else{
+						echo "
+							<tr>
+								<td>$arv</td>
+								<td>$nimi</td>
+								<td>$email</td>
+								<td>$telefon</td>
+								<td>$kuupaev</td>
+								<td>$aeg</td>
+								<td><textarea readonly style='width: 100%; height: 100%; border: none'>$lisa</textarea></td>
+								<td>$confirmed</td>
+								<td><button class='confirmBtn' name=$bronn_ID id='kinnitus'>Kinnita broneering</button></td>
+								<td><a href='?edit=$bronn_ID'>Muuda</a></td>
+								<td><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
+							</tr>
+						";
+					}
+					//<td><button class='changeInfo' name=$bronn_ID id=$lisa>Muuda lisainfot</button></td>
+													//<td><button class='confirmInfo' name=$bronn_ID id=$lisa>Salvesta lisainfo</button></td>
+
 				}
 			?>
 			
@@ -112,8 +133,6 @@
 					HTML += "</table>";
 					HTML += "<button id='confirmInfoBtn' class='confirmInfo' name="+item[0]+">Kinnita muudatus</button>";
 					this.change.innerHTML += HTML;
-					$("#bronniTabel").load("admin.php #bronniTabel");
-					
 				});
 			});
 			$(document).on("click", ".confirmInfo", function(){
@@ -161,16 +180,35 @@
 						this.choose = document.getElementById("chooseDate");
 						var table = $('<table class="table table-hover" border=1>');
 						var tr = "<tr>";
-						tr += "<th>Kustuta broneering</th><th>Inimeste arv</th><th>Eesnimi</th><th>Email</th><th>Telefon</th><th>Kuupäev</th><th>Aeg</th><th>Lisa</th></tr>";
+						tr += "<th>Kustuta broneering</th><th>Muuda broneering</th><th>Inimeste arv</th><th>Eesnimi</th><th>Email</th><th>Telefon</th><th>Kuupäev</th><th>Aeg</th><th>Lisa</th></tr>";
 						$(tr).appendTo(table);
 						$.each(item, function(index, value){
 							var TableRow = "<tr>";
 							$.each(value, function (key, val){
 								if(key != 'bronn_ID' && key !='confirmed'){
-									TableRow += "<td>" + val + "</td>";
+									<?php if(isset($_GET["editConfirmed"]) && $bronn_ID == $_GET["editConfirmed"]){
+										echo "if(key =='arv'){
+											TableRow += '<td><input style='width: 100%; height: 100%; border: none' id ='arvVal' value=$arv />' + val + '</td>';
+										}if(key == 'aeg'){
+											TableRow += '<td align=center><input style='width: 100%; height: 100%; border: none' id='aegVal' value=$aeg />'+val+'</td>';
+										}
+										if(key == 'kuupaev'){
+											TableRow += '<td align=center><input style='width: 100%; height: 100%; border: none' class='kuupaevVal' type='text' name='kuupaevVal' id='datepicker2' onmousedown='datepick();' value=$kuupaev >'+val+'</td>';
+										}
+										if(key == 'lisa'){
+											TableRow += '<td align=center><textarea id='textareaVal' style='width: 100%; height: 100%; border: none'>$lisa</textarea>'+val+' </td>';
+										}else{
+											TableRow += '<td>' + val + '</td>';
+										}";
+										
+									}else{
+										echo "TableRow += '<td>' + val + '</td>';";
+									}?>
+									
 								}
 								if(key == 'bronn_ID'){
 									TableRow +="<td><button class='deleteBtn' name="+val+" id='delete'>Kustuta broneering</button></td>";
+									TableRow +="<td><a href='?editConfirmed="+val+"'>Muuda</a></td>";
 								}
 							});
 							TableRow += "</tr>";

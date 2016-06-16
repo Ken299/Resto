@@ -1,17 +1,20 @@
 <?php
 	require_once('php/functions.php');
-	if(($_SESSION["rights"])!=1){
-		// kui on,suunan data lehele
-		header("Location: login.php");
-		exit();
+	if(isset($_SESSION["rights"])){
+		if(($_SESSION["rights"])!=1){
+			// kui on,suunan data lehele
+			header("Location: login.php");
+			exit();
+		}
 	}
+	
 		//header("Location: login.php");
 		//exit();
 	
 	//muutujad errorite jaoks
-	$create_uname_error = $create_pw_error = $uname_error = $pw_error = "";
+	$create_uname_error = $create_pw_error = $create_radio_error = $uname_error = $pw_error = "";
 	//muutujad väärtuste joks
-	$create_uname = $create_pw = $pw = $uname = "";
+	$create_uname = $create_pw = $optradio = $pw = $uname = "";
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		if(isset($_POST["create"])){
@@ -31,7 +34,12 @@
 					$create_pw = cleanInput($_POST["create_pw"]);
 				}
 			}
-			$rights = ($_POST["rights"]);
+			if(empty($_POST["optradio"])){
+				$create_radio_error = "See väli on kohustuslik";
+			}else{
+				$rights = ($_POST["optradio"]);
+			}
+			
 			//võib kasutaja teha
 			if(	$create_uname_error == "" && $create_pw_error == ""){
 				$password_hash = hash("sha512", $create_pw);
@@ -84,15 +92,16 @@
 		<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
 	</fieldset>
 	<div class="container">
-	  <form role="form">
+	  <form role="form" name="rights">
+		<span class="error" style="color:red;"><?php echo $create_radio_error ?></span>
 		<label class="radio-inline">
-		  <input type="radio" name="optradio" value="1">Admin
+			<input type="radio" name="optradio" value="1">Admin</input>
 		</label>
 		<label class="radio-inline">
-		  <input type="radio" name="optradio" value="2">Broneeringud
+			<input type="radio" name="optradio" value="2">Broneeringud</input>
 		</label>
 		<label class="radio-inline">
-		  <input type="radio" name="optradio" value="3">Blogi
+			<input type="radio" name="optradio" value="3">Blogi</input>
 		</label>
 	  </form>
 	<div>
