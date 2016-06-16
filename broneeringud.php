@@ -16,9 +16,8 @@
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<title>Broneeringute leht</title>
+
 	<script>
-	
-		
 		$(document).ready(function(){
 			$(".confirmBtn").click(function(event){
 				request = $.ajax({
@@ -34,7 +33,6 @@
 					console.log(response);
 				});
 			});
-			
 		});
 		
 		
@@ -112,6 +110,7 @@
 					e.preventDefault();
 			});
 			datepick();
+			
 			$(".changeInfo").click(function(event){
 				request = $.ajax({
 					url: "php/changeInfo.php",
@@ -126,7 +125,7 @@
 					var item = JSON.parse(response);
 					this.change = document.getElementById("changeInfo");
 					this.change.innerHTML = "";
-					this.change.innerHTML += "<h2>Broneeringu muutmine";
+					this.change.innerHTML += "<h2>Broneeringu muutmine</h2>";
 					var HTML = "<table class='table table-hover' border=1><tr>";
 					HTML += "<th align=center>Inimeste arv</th><th align=center>Aeg</th><th align=center>Kuupäev</th><th align=center>Lisainfo</th></tr>";
 					HTML += item[1];
@@ -160,7 +159,7 @@
 					
 				});
 			});
-			$(document).on("click", ".kuupaevBtn", function(){
+			$(document).on("click", ".kuupaevBtn", function(e){
 				$("#chooseDate").html("");
 					var id = $(this).attr('value'); 
 					console.log(id);
@@ -176,7 +175,6 @@
 						console.log(response);
 						var item = JSON.parse(response);
 						console.log(item);
-						
 						this.choose = document.getElementById("chooseDate");
 						var table = $('<table class="table table-hover" border=1>');
 						var tr = "<tr>";
@@ -208,7 +206,7 @@
 								}
 								if(key == 'bronn_ID'){
 									TableRow +="<td><button class='deleteBtn' name="+val+" id='delete'>Kustuta broneering</button></td>";
-									TableRow +="<td><a href='?editConfirmed="+val+"'>Muuda</a></td>";
+									TableRow +="<td><a href='?editConfirmed="+val+"&dateBtn="+$(e.target).attr("id")+"'>Muuda</a></td>";
 								}
 							});
 							TableRow += "</tr>";
@@ -217,6 +215,9 @@
 						$(table).appendTo("#chooseDate");
 					});
 				});
+				
+			($(".kuupaevBtn") && $("#<?php if(isset($_GET['dateBtn'])){echo $_GET['dateBtn'];}else{echo 1;}; ?>")).trigger("click");
+			
 			$(document).on("click", ".deleteBtn", function(){
 				console.log("Test");
 				request = $.ajax({
