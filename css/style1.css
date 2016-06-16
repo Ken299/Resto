@@ -12,10 +12,7 @@
     background: transparent url(../images/pattern.png) repeat top left; 
 }
 
-img {
-    
-    filter:blur(10px);
-}
+
 
 .cb-slideshow li span { 
     width: 100%;
@@ -23,7 +20,6 @@ img {
     position: absolute;
     top: 0px;
     left: 0px;
-    filter:blur(10px);
     color: transparent;
     background-size: cover;
     background-position: 50% 50%;
@@ -41,7 +37,7 @@ img {
     z-index: 1000;
     position: absolute;
     bottom: 30px;
-    filter:blur(10px);
+    
     left: 0px;
     width: 100%;
     text-align: center;

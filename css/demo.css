@@ -12,12 +12,12 @@
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
 	margin:0;
 	padding:0;
-    filter:blur(10px);
+    
 }
 html,body {
 	margin:0;
 	padding:0;
-    filter:blur(10px);
+   
 }
 table {
 	border-collapse:collapse;
@@ -25,7 +25,7 @@ table {
 }
 fieldset,img { 
 	border:0;
-     filter:blur(50px);
+     
 }
 input{
 	border:1px solid #b0b0b0;
