@@ -46,7 +46,7 @@
 	</div>
 	<div id="table-view">
 		<h1>Broneeringud</h1>
-		<table id="bronniTabel" border='1' margin='50px'>
+		<table class="table table-hover" id="bronniTabel" border='1' margin='50px'>
 			<tr>
 				<th>Inimeste arv</th>
 				<th>Eesnimi</th>
@@ -78,7 +78,7 @@
 							<td>$confirmed</td>
 							<td><button class='confirmBtn' name=$bronn_ID id='kinnitus'>Kinnita broneering</button></td>
 							<td><button class='changeInfo' name=$bronn_ID id=$lisa>Muuda lisainfot</button></td>
-							<td><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
+							<td><a href='broneeringud.php'><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
 						</tr>
 					";
 				}
@@ -106,7 +106,7 @@
 					this.change = document.getElementById("changeInfo");
 					this.change.innerHTML = "";
 					this.change.innerHTML += "<h2>Broneeringu muutmine";
-					var HTML = "<table border=1><tr>";
+					var HTML = "<table class='table table-hover' border=1><tr>";
 					HTML += "<th align=center>Inimeste arv</th><th align=center>Aeg</th><th align=center>Kuupäev</th><th align=center>Lisainfo</th></tr>";
 					HTML += item[1];
 					HTML += "</table>";
@@ -157,7 +157,7 @@
 						console.log(item);
 						
 						this.choose = document.getElementById("chooseDate");
-						var table = $('<table border=1>');
+						var table = $('<table class="table table-hover" border=1>');
 						var tr = "<tr>";
 						tr += "<th>Kustuta broneering</th><th>Inimeste arv</th><th>Eesnimi</th><th>Email</th><th>Telefon</th><th>Kuupäev</th><th>Aeg</th><th>Lisa</th></tr>";
 						$(tr).appendTo(table);
@@ -168,7 +168,7 @@
 									TableRow += "<td>" + val + "</td>";
 								}
 								if(key == 'bronn_ID'){
-									TableRow +="<td><button class='deleteBtn' name="+val+" id='delete'>Kustuta broneering</button></td>";
+									TableRow +="<td><a href='broneeringud.php'><button class='deleteBtn' name="+val+" id='delete'>Kustuta broneering</button></td>";
 								}
 							});
 							TableRow += "</tr>";
@@ -339,16 +339,27 @@
 	</head>
 		<h1>Loo uus broneering</h1>
 		<form id="bronni">
+		<div class="form-group">
 			<p>Nimi:</p> 
 			<input type="text" name="name" id="name" required>
+		</div>
+		<div class="form-group">
 			<p>Arv:</p>
 			<input type="number" name="arv" id="arv" required>		
+		</div>
+		<div class="form-group">
 			<p>E-mail:</p>
 			<input type="email" name="email" id="email" required>
+		</div>
+		<div class="form-group">
 			<p>Telefon:</p>
 			<input type="number" name="telefon" id="telefon" required>
+		</div>
+		<div class="form-group">
 			<p>Kuupäev:</p>
 			<input type="text" onchange="showAvailability()" name="kuupaev" id="datepicker" required>
+		</div>
+		<div class="form-group">
 			<p id="txt_seats"></p>
 			<p>Aeg:</p>
 			<select name="tunnid" id="tunnid" onchange="showAvailability()">
@@ -373,11 +384,16 @@
 				<option value="30">30</option>
 				<option value="45">45</option>
 			</select>
+		</div>
+		<div class="form-group">
 			<p id="error_date"></p>
+		</div>
+		<div class="form-group">
 			<p>Lisainfo:</p>
 			<textarea rows="4" cols="40" name="lisainfo" id="lisainfo"></textarea></br></br>
 			
 			<input type="submit" id="btn_submit" value="Broneeri">
+		</div>
 			<p id="txt_result"></p>
 		</form>
 	
