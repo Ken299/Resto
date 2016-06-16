@@ -30,7 +30,7 @@
 				});
 				
 				request.done(function (response, textStatus, jqXHR){
-					//$("#bronniTabel").load("admin.php #bronniTabel");
+					$("#bronniTabel").load("admin.php #bronniTabel");
 					console.log(response);
 				});
 			});
@@ -78,7 +78,7 @@
 							<td>$confirmed</td>
 							<td><button class='confirmBtn' name=$bronn_ID id='kinnitus'>Kinnita broneering</button></td>
 							<td><button class='changeInfo' name=$bronn_ID id=$lisa>Muuda lisainfot</button></td>
-							<td><a href='broneeringud.php'><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
+							<td><button class='deleteBtn' name=$bronn_ID id='delete'>Kustuta broneering</button></td>
 						</tr>
 					";
 				}
@@ -112,6 +112,7 @@
 					HTML += "</table>";
 					HTML += "<button id='confirmInfoBtn' class='confirmInfo' name="+item[0]+">Kinnita muudatus</button>";
 					this.change.innerHTML += HTML;
+					$("#bronniTabel").load("admin.php #bronniTabel");
 					
 				});
 			});
@@ -135,6 +136,7 @@
 					}
 				});
 				request.done(function (response, textStatus, jqXHR){
+					$("#bronniTabel").load("admin.php #bronniTabel");
 					console.log(response);
 					
 				});
@@ -168,7 +170,7 @@
 									TableRow += "<td>" + val + "</td>";
 								}
 								if(key == 'bronn_ID'){
-									TableRow +="<td><a href='broneeringud.php'><button class='deleteBtn' name="+val+" id='delete'>Kustuta broneering</button></td>";
+									TableRow +="<td><button class='deleteBtn' name="+val+" id='delete'>Kustuta broneering</button></td>";
 								}
 							});
 							TableRow += "</tr>";
@@ -187,6 +189,8 @@
 					}
 				});
 				request.done(function(response, textStatus, jqXHR){
+					//$("").html("");
+					$("#bronniTabel").load("admin.php");
 					console.log(response);
 				});
 			});
