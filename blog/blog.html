@@ -23,17 +23,27 @@
 			// Tegeleb saadud andmetega edasi 
 			function handleData(data) {
 				var results = jQuery.parseJSON(data);
-				console.log(results);
 				for (var i = 0; i < results.length; i++){
 					$("#main").append("<div class='post' id='"+results[i].post_ID+"'></div>");
 					$("#"+results[i].post_ID).append("<img src='"+results[i].img+"' height='300'>");
 					$("#"+results[i].post_ID).append("<h1>"+results[i].pealkiri+"</h1>");
+					// Lisab click eventi, mille abil edastatakse id, et kuvada kogu postitust.
+					$("#"+results[i].post_ID).bind("click", "div", function(e) {
+						var target = $(e.target);
+						if (target.is("img") || target.is("h1")) {
+							window.location = "view.php?id=" + target.parent().attr("id") ;
+						} else {
+							window.location = "view.php?id=" + target.attr("id");
+						}
+					});
+					
 				}
 			}
 		</script>
 	</head>
 	
 	<body>
+
 		<!-- Siia lisatakse olemasolevad postitused -->
 		<div id="main"></div>
 	</body>
