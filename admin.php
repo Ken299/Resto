@@ -110,7 +110,7 @@
 		</label>
 	  </form>
 	<div>
-	<input type="submit" class="btn btn-restoran" name="create" value='Loo konto' style="margin-left: 8%; margin-top: 35px;"/>
+	<input type="submit" class="btn btn-restoran" name="create" value='Loo konto' style="margin-top: 35px;"/>
 	<br><br>
 </form>
 </div>

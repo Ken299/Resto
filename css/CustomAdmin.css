@@ -1,6 +1,19 @@
 body{
 	background-image: url("../images/admintaust.jpg");
 }
+.tableView {
+	color: white;
+}
+td{
+	text-align:center;
+}
+p {
+	color:white;
+}
+textarea {
+    resize: none;
+}
+
 .btn-restoran { 
   color: #FFFFFF; 
   background-color: #1a000d; 

@@ -108,14 +108,21 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/CustomAdmin.css" />
 
 </head>
 <body>
-<main role="main">
-<div class="col-md-2 col-md-offset-5">
+<nav class="navbar navbar-inverse">
+	<div class="navbar-header">
+	<p><a href="login.php"><img src="img/relatedposts/manna.png" width="50px" height="50px"></a><span style="color: white;" class="MVD"> Manna Va Doosa sisselogimine</span></p>
+	</div>
+	<p align="right" style="margin-right: 40px; margin-top: 15px;"class="menu-item"><a href="./" class="btn btn-restoran">Kodulehele</a></p>
+	</nav>
+	<br><br><br>
+<div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 <div id="login-view">
 <form method="post">
-	<h1>Logi sisse</h1>
+	<h1 style="color: white;">Sisselogimine</h1>
 	
 	<?php if(isset($login_response->error)):?>
 	<p style="color:red;"><?=$login_response->error->message;?></p>
@@ -124,42 +131,18 @@
 	<?php endif;?>
 	
 	<fieldset class="form-group">
-		<label for="uname">Username</label><span class="error" style="color:red;"> <?php echo $uname_error?></span>
+		<label for="uname" style="color: white;">Username</label><span class="error" style="color:red;"> <?php echo $uname_error?></span>
 		<input type="text" class="form-control" name="uname" placeholder="Kasutajanimi" value="<?php if(isset($_POST["uname"])){echo $uname;}?>" />
 	</fieldset>
 	<fieldset class="form-group">
-		<label for="pw">Password</label><span class="error" style="color:red;"> <?php echo $pw_error?></span>
+		<label for="pw" style="color: white;">Password</label><span class="error" style="color:red;"> <?php echo $pw_error?></span>
 		<input type="password" class="form-control" name="pw" placeholder="Parool"/>
 	</fieldset>
-	<input type="submit" class="btn btn-success" name="login" value="Logi sisse"/>
+	<input type="submit" class="btn btn-restoran" style="margin-top: 35px;" name="login" value="Logi sisse"/>
 	<br><br>
-	<center><a href="#register-view">Loo uus kasutaja</a></center>
-</form>
-</div>
-<div id="register-view">
-<form method="post">
-	<h1>Registreeru</h1>
-	
-	<?php if(isset($create_response->error)):?>
-	<p style="color:red;"><?=$create_response->error->message;?></p>
-	<?php elseif(isset($create_response->success)):?>
-	<p style="color:green;"><?=$create_response->success->message;?></p>
-	<?php endif;?>
-	
-	<fieldset class="form-group">
-		<label for="create_uname">Username</label><span class="error" style="color:red;"> <?php echo $create_uname_error?></span>
-		<input type="text" class="form-control" name="create_uname" placeholder="Kasutajanimi" value="<?php if(isset($_POST["create_uname"])){echo $create_uname;}?>" />
-	</fieldset>
-	<fieldset class="form-group">	
-		<label for="create_pw">Password</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
-		<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
-	</fieldset>
-	<input type="submit" class="btn btn-success" name="create" value="Registreeri"/>
-	<br><br>
-	<center><a href="#login-view">Kasutaja juba olemas</a></center>
 </form>
 </div>
 </div>
-</main>
+</div>
 </body>
 </html>
