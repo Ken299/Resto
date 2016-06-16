@@ -9,6 +9,10 @@
 		// kui on,suunan data lehele
 		header("Location: broneeringud.php");
 		exit();
+	}elseif($_SESSION["rights"]==3){
+		// kui on,suunan data lehele
+		header("Location: blog/blog_post.php");
+		exit();
 	}
 	
 	//muutujad errorite jaoks
@@ -75,6 +79,11 @@
 					if($_SESSION["rights"]==2){
 						echo "broneeringu lehele";
 						header("Location:broneeringud.php");
+						exit();
+					}
+					if($_SESSION["rights"]==3){
+						echo "broneeringu lehele";
+						header("Location:blog/blog_post.php");
 						exit();
 					}
 					
