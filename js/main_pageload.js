@@ -56,6 +56,9 @@
 						classie.add( container, 'loaded' );
 						//document.getElementById("navbar").style = "visibility: visible;";
 						clearInterval( interval );
+						document.getElementById("tsau").style = "display: inline;";
+						var IE = document.getElementsByClassName("tsau");
+						IE[0].style.display = "inline";
 
 						var onEndHeaderAnimation = function(ev) {
 							if( support.animations ) {
