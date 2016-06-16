@@ -62,13 +62,12 @@
 </head>
 <body>
 	<div class="page-header">
-		<li class="menu-item"><a href="php/logout.php" class="menu-link">Logi välja</a></li>
+		<p align="right" style="margin-right: 70px;" class="menu-item"><a href="php/logout.php" class="btn btn-success">Logi välja</a></p>
 	</div>
-	<h1>tere</h1>
-	
+	<div class="col-md-2 col-md-offset-5">
 	<div id="register-view">
 <form method="post">
-	<h1>Registreeru</h1>
+	<h1>Loo uus konto</h1>
 	
 	<?php if(isset($create_response->error)):?>
 	<p style="color:red;"><?=$create_response->error->message;?></p>
@@ -84,18 +83,23 @@
 		<label for="create_pw">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
 		<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
 	</fieldset>
-	<fieldset class="form-group">
-		<label for="create_rights">Õigused</label>
-		<select name="rights" id="rights">
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-		</select>
-	</fieldset>
-	<input type="submit" class="btn btn-success" name="create"/>
+	<div class="container">
+	  <form role="form">
+		<label class="radio-inline">
+		  <input type="radio" name="optradio" value="1">Admin
+		</label>
+		<label class="radio-inline">
+		  <input type="radio" name="optradio" value="2">Broneeringud
+		</label>
+		<label class="radio-inline">
+		  <input type="radio" name="optradio" value="3">Blogi
+		</label>
+	  </form>
+	<div>
+	<input type="submit" class="btn btn-success" name="create" value='Loo konto' style="margin-left: 35%;"/>
 	<br><br>
 </form>
+</div>
 </div>
 </body>
 </html>

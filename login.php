@@ -128,7 +128,7 @@
 		<label for="pw">Password</label><span class="error" style="color:red;"> <?php echo $pw_error?></span>
 		<input type="password" class="form-control" name="pw" placeholder="Parool"/>
 	</fieldset>
-	<input type="submit" class="btn btn-success" name="login"/>
+	<input type="submit" class="btn btn-success" name="login" value="Logi sisse"/>
 	<br><br>
 	<center><a href="#register-view">Loo uus kasutaja</a></center>
 </form>
@@ -151,7 +151,7 @@
 		<label for="create_pw">Password</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
 		<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
 	</fieldset>
-	<input type="submit" class="btn btn-success" name="create"/>
+	<input type="submit" class="btn btn-success" name="create" value="Registreeri"/>
 	<br><br>
 	<center><a href="#login-view">Kasutaja juba olemas</a></center>
 </form>
