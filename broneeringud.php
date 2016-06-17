@@ -115,9 +115,6 @@
 								</tr>
 							";
 						}
-						//<td><button class='changeInfo' name=$bronn_ID id=$lisa>Muuda lisainfot</button></td>
-														//<td><button class='confirmInfo' name=$bronn_ID id=$lisa>Salvesta lisainfo</button></td>
-
 					}
 				?>
 				
@@ -210,15 +207,15 @@
 		</div>
 		<!-- tabi salvestamine refreshil -->
 		<script>
-				$('#myTab a').click(function(e) {
-		  e.preventDefault();
-		  $(this).tab('show');
+		$('#myTab a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
 		});
 
 		// store the currently selected tab in the hash value
 		$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
-		  var id = $(e.target).attr("href").substr(1);
-		  window.location.hash = id;
+			var id = $(e.target).attr("href").substr(1);
+			window.location.hash = id;
 		});
 
 		// on load of the page: switch to the currently selected tab
@@ -306,31 +303,49 @@
 						$.each(item, function(index, value){
 							var TableRow = "<tr class='tableView'>";
 							$.each(value, function (key, val){
+								
+								if(key == 'bronn_ID'){
+									
+									TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
+									<?php
+										if(!isset($_GET["editConfirmed"])){
+											echo "
+												TableRow += '<td><a href=?editConfirmed='+val+'&dateBtn='+$(e.target).attr('id')+'#tab2>Muuda</a></td>';
+											";
+										}else{
+											echo "
+												TableRow += '<td><a href=?dateBtn='+$(e.target).attr('id')+'#tab2 class=confirmInfo name='+val+' >Salvesta</a></td>'; 
+											";
+										}
+									?>
+								}
 								if(key != 'bronn_ID' && key !='confirmed'){
 									<?php if(isset($_GET["editConfirmed"])) {
 										echo "if(key =='arv'){
 											TableRow += '<td><input style=color:black id=arvVal value='+val+' /></input></td>';
 										}
+										if(key == 'nimi'){
+											TableRow += '<td>' + val + '</td>';
+										}
+										if(key == 'email'){
+											TableRow += '<td>' + val + '</td>';
+										}
+										if(key == 'telefon'){
+											TableRow += '<td>' + val + '</td>';
+										}
 										if(key == 'aeg'){
 											TableRow += '<td align=center><input style=color:black id=aegVal value='+val+' /></input></td>';
 										}
 										if(key == 'kuupaev'){
-											TableRow += '<td align=center><input style=color:black class=kuupaevVal type=text name=kuupaevVal id=datepicker2 onmousedown=datepick(); value=$kuupaev ></input></td>';
+											TableRow += '<td align=center><input style=color:black class=kuupaevVal type=text name=kuupaevVal id=datepicker2 onmousedown=datepick(); value='+val+' ></input></td>';
 										}
 										if(key == 'lisa'){
-											TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black>$lisa</textarea> </textarea></td>';
-										}else{
-											TableRow += '<td>' + val + '</td>';
+											TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black value='+val+'>'+val+'</textarea></td>';
 										}";
 										
 									}else{
 										echo "TableRow += '<td>' + val + '</td>';";
 									}?>
-									
-								}
-								if(key == 'bronn_ID'){
-									TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
-									TableRow +="<td><a href='?editConfirmed="+val+"&dateBtn="+$(e.target).attr("id")+'#tab2'+"'>Muuda</a></td>";
 								}
 							});
 							TableRow += "</tr>";
@@ -491,4 +506,4 @@
 	</head>
 	
 </body>
-</html
+</html>
