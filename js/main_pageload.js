@@ -56,9 +56,9 @@
 						classie.add( container, 'loaded' );
 						//document.getElementById("navbar").style = "visibility: visible;";
 						clearInterval( interval );
-						document.getElementById("tsau").style = "display: inline;";
 						var IE = document.getElementsByClassName("tsau");
 						IE[0].style.display = "inline";
+						window.setTimeout(waitTime, 1000);
 
 						var onEndHeaderAnimation = function(ev) {
 							if( support.animations ) {
@@ -81,6 +81,11 @@
 		};
 
 		loader.setProgressFn( simulationFn );
+	}
+	function waitTime(){
+		//document.getElementById("mannalogo2").style = "display: inline;";
+		var logoM = document.getElementsByClassName("mannalogo2");
+		logoM[0].style.display = "inline";
 	}
 	
 	function noscroll() {
