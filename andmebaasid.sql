@@ -16,3 +16,5 @@ CREATE TABLE postitused(
 	pealkiri VARCHAR(50),
 	sisu MEDIUMTEXT
 );
+
+INSERT INTO bronn (arv, nimi, email, telefon, kuupaev, aeg, lisa) VALUES ('3', 'sabddf', 'weerwge@wef.cwef', '23234345', '2016-06-20', '18:00', 'wefwefwefwe');
