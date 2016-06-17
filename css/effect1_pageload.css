@@ -188,13 +188,12 @@
 .loaded .ip-loader {
 	opacity: 1;
 }
-
-.loaded .ip-logo {
-	-webkit-transform-origin: center 30% 0;
-	transform-origin: center 30% 0;
+	.loaded .ip-logo {
+	-webkit-transform-origin: center -100% 0;
+	transform-origin: center -100% 0;
 	-webkit-animation: animLoadedLogo 1s cubic-bezier(0.7,0,0.3,1) forwards;
 	animation: animLoadedLogo 1s cubic-bezier(0.7,0,0.3,1) forwards;
-}
+	}
 
 @-webkit-keyframes animLoadedLogo {
 	to { -webkit-transform: translate3d(0,100%,0) translate3d(0,50px,0) scale3d(0.65,0.65,1); }
