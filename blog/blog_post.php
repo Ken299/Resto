@@ -121,7 +121,7 @@
 				}));
 			});
 			
-			// Kontrollime, et oleks pilt valitud ning pealirjaks ja sisuks midagi sisestatud.
+			// Kontrollime, et oleks pilt valitud ning pealkirjaks ja sisuks midagi sisestatud.
 			function validation(imgPicked) {
 				imgPicked = imgPicked || 0; // Kui pole väärtust kaasa antud, on 0.
 				

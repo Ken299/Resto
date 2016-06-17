@@ -14,12 +14,6 @@
 			$(document).ready(function(){
 				getPosts(pageNr);
 				getMaxPosts();
-				
-				$(".pageBtn").bind("click", "div", function(e) {
-					var target = $(e.target);
-					console.log(target.attr("id").slice(4));
-					
-				});
 			});
 			
 			function paginationSetup() {
