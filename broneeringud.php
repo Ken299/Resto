@@ -1,10 +1,12 @@
 <?php
 	require_once('php/functions.php');
+	//if(isset($_SESSION["rights"])){
 	if(($_SESSION["rights"])!=2){
 		// kui on,suunan data lehele
 		header("Location: login.php");
 		exit();
 	}
+	//}
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +32,8 @@
 				});
 				
 				request.done(function (response, textStatus, jqXHR){
-					$("#bronniTabel").load("admin.php #bronniTabel");
+					window.location.reload();
+					//$("#bronniTabel").load("admin.php #bronniTabel");
 					console.log(response);
 				});
 			});
@@ -48,14 +51,14 @@
 	</nav>
 	<div id="table-view">
 		<h1 class='tableView'>Broneeringud</h1><br><br><br>
-		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#newB">Uued broneeringud</a></li>
-			<li><a data-toggle="tab" href="#acceptedB">Kinnitatud broneeringud</a></li>
-			<li><a data-toggle="tab" href="#addB">Käsitsi lisamine</a></li>
+		<ul class="nav nav-tabs" id="myTab">
+			<li class="active"><a href="#tab1">Uued broneeringud</a></li>
+			<li><a href="#tab2">Kinnitatud broneeringud</a></li>
+			<li><a href="#tab3">Käsitsi lisamine</a></li>
 		</ul>
 		<div class="tab-content">
 		<br>
-		<div id="newB" class="tab-pane fade in active">
+		<div id="tab1" class="tab-pane fade in active">
 		<br><br>
 		<div class="col-md-10 col-md-offset-1" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 		<br>
@@ -121,7 +124,7 @@
 			</table>
 		</div>
 		</div>
-		<div id="acceptedB" class="tab-pane fade">
+		<div id="tab2" class="tab-pane fade">
 		<h2 class='tableView' align="center">Kinnitatud broneeringud</h2>
 		<div class="col-md-10 col-md-offset-1" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 			<div id='changeInfo'></div>
@@ -130,7 +133,7 @@
 			<?php 
 				$buttonID = 1;
 				$yhendus=new mysqli("localhost", "if13", "ifikad", "if13_mikkottis");
-				$stmt = $yhendus->prepare("SELECT count(*), kuupaev FROM bronn WHERE confirmed = 1 AND kuupaev > curdate() group by kuupaev");
+				$stmt = $yhendus->prepare("SELECT count(*), kuupaev FROM bronn WHERE confirmed = 1 AND kuupaev >= curdate() group by kuupaev");
 				$stmt->bind_result($count, $kuupaev);
 				$stmt->execute();
 				while($stmt->fetch()){
@@ -141,7 +144,7 @@
 			<div id='chooseDate'></div>
 			</div>
 			</div>
-		<div id="addB" class="tab-pane fade">
+		<div id="tab3" class="tab-pane fade">
 			<h1 class="tableView" align="center">Loo uus broneering</h1>
 		<div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 		<form id="bronni" align="center">
@@ -204,7 +207,24 @@
 			</form>
 		</div>
 		</div>
-		
+		</div>
+		<!-- tabi salvestamine refreshil -->
+		<script>
+				$('#myTab a').click(function(e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+
+		// store the currently selected tab in the hash value
+		$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+		  var id = $(e.target).attr("href").substr(1);
+		  window.location.hash = id;
+		});
+
+		// on load of the page: switch to the currently selected tab
+		var hash = window.location.hash;
+		$('#myTab a[href="' + hash + '"]').tab('show');
+		</script>
 		<!-- Muutmine ja kinnitatud broneeringud -->
 		
 		<script>
@@ -287,17 +307,18 @@
 							var TableRow = "<tr class='tableView'>";
 							$.each(value, function (key, val){
 								if(key != 'bronn_ID' && key !='confirmed'){
-									<?php if(isset($_GET["editConfirmed"]) && $bronn_ID == $_GET["editConfirmed"]){
+									<?php if(isset($_GET["editConfirmed"])) {
 										echo "if(key =='arv'){
-											TableRow += '<td><input style='width: 100%; height: 100%; border: none' id ='arvVal' value=$arv />' + val + '</td>';
-										}if(key == 'aeg'){
-											TableRow += '<td align=center><input style='width: 100%; height: 100%; border: none' id='aegVal' value=$aeg />'+val+'</td>';
+											TableRow += '<td><input style=color:black id=arvVal value='+val+' /></input></td>';
+										}
+										if(key == 'aeg'){
+											TableRow += '<td align=center><input style=color:black id=aegVal value='+val+' /></input></td>';
 										}
 										if(key == 'kuupaev'){
-											TableRow += '<td align=center><input style='width: 100%; height: 100%; border: none' class='kuupaevVal' type='text' name='kuupaevVal' id='datepicker2' onmousedown='datepick();' value=$kuupaev >'+val+'</td>';
+											TableRow += '<td align=center><input style=color:black class=kuupaevVal type=text name=kuupaevVal id=datepicker2 onmousedown=datepick(); value=$kuupaev ></input></td>';
 										}
 										if(key == 'lisa'){
-											TableRow += '<td align=center><textarea class='form-control' id='textareaVal' style='width: 100%; height: 100%; border: none'>$lisa</textarea>'+val+' </td>';
+											TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black>$lisa</textarea> </textarea></td>';
 										}else{
 											TableRow += '<td>' + val + '</td>';
 										}";
@@ -309,7 +330,7 @@
 								}
 								if(key == 'bronn_ID'){
 									TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
-									TableRow +="<td><a href='?editConfirmed="+val+"&dateBtn="+$(e.target).attr("id")+"'>Muuda</a></td>";
+									TableRow +="<td><a href='?editConfirmed="+val+"&dateBtn="+$(e.target).attr("id")+'#tab2'+"'>Muuda</a></td>";
 								}
 							});
 							TableRow += "</tr>";
@@ -319,7 +340,7 @@
 					});
 				});
 				
-			($(".kuupaevBtn") && $("#<?php if(isset($_GET['dateBtn'])){echo $_GET['dateBtn'];}else{echo 1;}; ?>")).trigger("click");
+			($(".kuupaevBtn") && $("#<?php if(isset($_GET['dateBtn'])){echo $_GET['dateBtn'];} ?>")).trigger("click");
 			
 			$(document).on("click", ".deleteBtn", function(){
 				console.log("Test");
@@ -470,4 +491,4 @@
 	</head>
 	
 </body>
-</html>
+</html
