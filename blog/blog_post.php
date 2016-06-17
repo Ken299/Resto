@@ -16,6 +16,8 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 		<script>
+			var picSet = 0;
+		
 			$(document).ready(function(){
 		
 				// Käivitab TinyMCE liidese koos vajalike seadistustega
@@ -27,7 +29,21 @@
 								auto_focus: "sisu",
 								plugins: "advlist autolink autosave image link preview searchreplace wordcount",
 								menubar: "file edit insert view format",
-								toolbar: "undo redo | styleselect | bold italic | alighnleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image preview searchreplace"
+								toolbar: "undo redo | styleselect | bold italic | alighnleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image preview searchreplace",
+								setup: function(sisu) {
+									sisu.on("keyup", function(e) {
+										validation();
+									});
+									
+									sisu.on('paste', function(e) {
+										validation();
+
+									});
+
+									sisu.on('cut', function(e) {
+										validation();
+									});
+								}
 							});
 				
 				
@@ -71,7 +87,7 @@
 				}));
 				
 				// AJAX POST request, et blogisse lisada uus postitus.
-				$("#laePost").on("submit",(function(e) {
+				$("#laePost").on("submit",(function(e) {	
 					e.preventDefault();
 					
 					editorToString();
@@ -104,6 +120,21 @@
 					});
 				}));
 			});
+			
+			// Kontrollime, et oleks pilt valitud ning pealirjaks ja sisuks midagi sisestatud.
+			function validation(imgPicked) {
+				imgPicked = imgPicked || 0; // Kui pole väärtust kaasa antud, on 0.
+				
+				if (imgPicked == 1){
+					picSet = 1;
+				}
+				
+				if(($("#pealkiri").val() != "") && (tinyMCE.activeEditor.getContent() != "") && picSet != 0) {
+					$("#btn_post").attr("disabled", false);
+				} else {
+					$("#btn_post").attr("disabled", true);
+				}
+			}
 			
 			// Võtab liidese TinyMCE sisu ning paneb selle #sisu inputi, et POST request saaks seda edasi anda.
 			function editorToString() {
@@ -154,8 +185,8 @@
 		<div id="sisestus">
 			<form id="laePost" method="post" enctype="multipart/form-data" novalidate>
 				<input type="hidden" id="pic" name="pic" value="">
-				<input type="text" name="pealkiri" id="pealkiri" placeholder="Pealkiri" required> </br> </br>
-				<textarea name="sisu" id="sisu" required></textarea> </br> </br>
+				<input type="text" name="pealkiri" id="pealkiri" placeholder="Pealkiri" onkeyup="validation()"> </br> </br>
+				<textarea name="sisu" id="sisu"></textarea> </br> </br>
 				<input id="btn_post" type="submit" value="Postita" name="submit" disabled="true">
 			</form> </br>
 		</div>

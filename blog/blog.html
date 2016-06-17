@@ -4,18 +4,59 @@
 		<title>Blogi testimine</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/blog.css">
+		<link type="text/css" rel="stylesheet" href="css/simplePagination.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.simplePagination.js"></script>
 		<script>
+			var maxPosts;
+			var pageNr = 1;
+		
 			$(document).ready(function(){
-				getPosts();
+				getPosts(pageNr);
+				getMaxPosts();
+				
+				$(".pageBtn").bind("click", "div", function(e) {
+					var target = $(e.target);
+					console.log(target.attr("id").slice(4));
+					
+				});
 			});
 			
+			function paginationSetup() {
+				$("#pager").pagination({
+					items: 6,
+					itemsOnPage: 5,
+					cssStyle: 'compact-theme',
+					edges: 1,
+					onInit: function() {
+						$("#pager").pagination("updateItems", maxPosts);
+					},
+					onPageClick: function(pageNumber) {
+						pageNr = pageNumber;
+						$("#main").empty();
+						getPosts(pageNr);
+					}
+				});
+			};
+			
 			// Võtab andmebaasist olemasolevad postitused.
-			function getPosts() {					
+			function getPosts(_pageNr) {	
 				$.ajax({
+					type: "POST",
 					url: "php/getposts.php",
+					data:{"pagenr": _pageNr},
 					success: function(data) {
 						handleData(data);
+					}
+				});
+			}
+			
+			function getMaxPosts() {
+				$.ajax({
+					url: "php/getPostTotal.php",
+					success: function(data) {
+						maxPosts = data;
+						paginationSetup();
 					}
 				});
 			}
@@ -36,14 +77,18 @@
 							window.location = "view.php?id=" + target.attr("id");
 						}
 					});
-					
 				}
 			}
 		</script>
 	</head>
 	
 	<body>
+		<!-- Lehtede kuvamiseks. Igal lehel on teatud hulk postitusi -->
+		<div id="pager">
+
+		</div>
 		<!-- Siia lisatakse olemasolevad postitused -->
 		<div id="main"></div>
+		
 	</body>
 </html>

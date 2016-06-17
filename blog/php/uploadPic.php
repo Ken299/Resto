@@ -4,7 +4,7 @@
 	uploadPic($img_name);
 	
 	function uploadPic($img_name) {
-		$target_dir = "uploads/";
+		$target_dir = "../uploads/";
 		$target_file = $target_dir . $img_name;
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
