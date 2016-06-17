@@ -115,9 +115,6 @@
 								</tr>
 							";
 						}
-						//<td><button class='changeInfo' name=$bronn_ID id=$lisa>Muuda lisainfot</button></td>
-														//<td><button class='confirmInfo' name=$bronn_ID id=$lisa>Salvesta lisainfo</button></td>
-
 					}
 				?>
 				
@@ -210,15 +207,15 @@
 		</div>
 		<!-- tabi salvestamine refreshil -->
 		<script>
-				$('#myTab a').click(function(e) {
-		  e.preventDefault();
-		  $(this).tab('show');
+		$('#myTab a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
 		});
 
 		// store the currently selected tab in the hash value
 		$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
-		  var id = $(e.target).attr("href").substr(1);
-		  window.location.hash = id;
+			var id = $(e.target).attr("href").substr(1);
+			window.location.hash = id;
 		});
 
 		// on load of the page: switch to the currently selected tab
@@ -306,6 +303,7 @@
 						$.each(item, function(index, value){
 							var TableRow = "<tr class='tableView'>";
 							$.each(value, function (key, val){
+								
 								if(key == 'bronn_ID'){
 									
 									TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
@@ -320,7 +318,6 @@
 											";
 										}
 									?>
-									//TableRow +="<td><a href='?editConfirmed="+val+"&dateBtn="+$(e.target).attr("id")+'#tab2'+"'>Muuda</a></td>";
 								}
 								if(key != 'bronn_ID' && key !='confirmed'){
 									<?php if(isset($_GET["editConfirmed"])) {
@@ -349,9 +346,7 @@
 									}else{
 										echo "TableRow += '<td>' + val + '</td>';";
 									}?>
-									
 								}
-								
 							});
 							TableRow += "</tr>";
 							$(table).append(TableRow);
@@ -511,4 +506,4 @@
 	</head>
 	
 </body>
-</html
+</html>
