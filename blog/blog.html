@@ -23,7 +23,7 @@
 			// Tegeleb saadud andmetega edasi 
 			function handleData(data) {
 				var results = jQuery.parseJSON(data);
-				for (var i = 0; i < results.length; i++){
+				for (var i = results.length - 1; i >= 0; i--){
 					$("#main").append("<div class='post' id='"+results[i].post_ID+"'></div>");
 					$("#"+results[i].post_ID).append("<img src='"+results[i].img+"' height='300'>");
 					$("#"+results[i].post_ID).append("<h1>"+results[i].pealkiri+"</h1>");
@@ -43,7 +43,6 @@
 	</head>
 	
 	<body>
-
 		<!-- Siia lisatakse olemasolevad postitused -->
 		<div id="main"></div>
 	</body>
