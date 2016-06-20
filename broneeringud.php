@@ -303,25 +303,21 @@
 						$.each(item, function(index, value){
 							var TableRow = "<tr class='tableView'>";
 							$.each(value, function (key, val){
-								
+								var GET = <?php echo json_encode($_GET); ?>;
+								console.log(key + " "+ val);
 								if(key == 'bronn_ID'){
-									
+									bronnID = val;
 									TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
-									<?php
-										if(!isset($_GET["editConfirmed"])){
-											echo "
-												TableRow += '<td><a href=?editConfirmed='+val+'&dateBtn='+$(e.target).attr('id')+'#tab2>Muuda</a></td>';
-											";
-										}else{
-											echo "
-												TableRow += '<td><a href=?dateBtn='+$(e.target).attr('id')+'#tab2 class=confirmInfo name='+val+' >Salvesta</a></td>'; 
-											";
-										}
-									?>
+									console.log(bronnID);
+									if(GET.hasOwnProperty('editConfirmed') && GET.editConfirmed == bronnID){ 
+										TableRow += '<td><a class=confirmInfo href=?dateBtn='+$(e.target).attr('id')+'#tab2 name='+bronnID+' >Salvesta</a></td>';
+									}else{
+										TableRow += '<td><a href=?editConfirmed='+val+'&dateBtn='+$(e.target).attr('id')+'#tab2>Muuda</a></td>';
+									}
 								}
-								if(key != 'bronn_ID' && key !='confirmed'){
-									<?php if(isset($_GET["editConfirmed"])) {
-										echo "if(key =='arv'){
+								if(key != 'confirmed'){
+									if(GET.hasOwnProperty('editConfirmed') && GET.editConfirmed == bronnID ){
+										if(key =='arv'){
 											TableRow += '<td><input style=color:black id=arvVal value='+val+' /></input></td>';
 										}
 										if(key == 'nimi'){
@@ -341,11 +337,10 @@
 										}
 										if(key == 'lisa'){
 											TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black value='+val+'>'+val+'</textarea></td>';
-										}";
-										
-									}else{
-										echo "TableRow += '<td>' + val + '</td>';";
-									}?>
+										}
+									}else if(key != 'bronn_ID'){
+										TableRow += '<td>' + val + '</td>';
+									}
 								}
 							});
 							TableRow += "</tr>";
@@ -378,9 +373,9 @@
 		});
 		function datepick() {
 			$("#datepicker2").datepicker({
-					dateFormat: "yy-mm-dd"
-				});
-			}
+				dateFormat: "yy-mm-dd"
+			});
+		}
 		</script>
 		
 		<!-- Käsitsi lisamine -->
