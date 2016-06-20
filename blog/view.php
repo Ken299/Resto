@@ -1,4 +1,5 @@
 <?php
+	require_once('../php/functions.php');
 	require_once("php/pdo_conf.php");
 	
 	try {
@@ -47,6 +48,7 @@
 			$(document).ready(function(){
 				getSideBarPosts();
 				getBeforeAndAfter();
+				addSpecial();
 				
 				$("#cover").attr("src", _data.img);
 				$("#title").text(_data.pealkiri);
@@ -69,12 +71,43 @@
 				});
 			});
 			
+			function addSpecial() {
+				if(rightCheck() == true) {
+					$("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
+					$("#special").append("<input type='button' id='btn_delete' value='Eemalda'>");
+					
+					$("#btn_delete").click(function(){
+						if(rightCheck() == true) {
+							$.ajax({
+								type: "POST",
+								url: "php/deletePost.php",
+								data:{"currPost": _data.post_ID},
+								success: function(data) {
+									window.location = "blog.html";
+								}
+							});
+						}
+					});		
+				}
+				
+				// Kontrollib, kas on vajalikud õigused
+				function rightCheck() {
+					if(<?php echo $_SESSION["rights"] ?> == 3){
+						return true;
+					} else {
+						return false;
+					}
+				}
+			}
+			
+			// Disablib nupu eelnevale postitusele minekuks
 			function disablePrev() {
 				if(_data.post_ID == minID){
 					$("#btn_prev").attr("disabled", true);
 				}
 			}
 			
+			// Disablib nupu järgnevale postitusele minekuks
 			function disableNext() {
 				if(_data.post_ID == maxID){
 					$("#btn_next").attr("disabled", true);
@@ -152,6 +185,7 @@
 			<input type="button" id="btn_next" value="Järgmine">
 			<input type="button" id="btn_back" value="Tagasi">
 		</div>
+		<div id="special"></div>
 		<!-- Siia tuleb kogu postitus koos kaasneva infoga -->
 		<div id="post">
 			<!-- Sisu -->
