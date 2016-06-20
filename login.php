@@ -122,8 +122,8 @@
 	<br><br><br>
 <div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 <div id="login-view">
-<form method="post">
-	<h1 style="color: white;">Sisselogimine</h1>
+<form method="post" align="center">
+	<p style="font-size:20px; color: white;">Sisselogimine</p>
 	
 	<?php if(isset($login_response->error)):?>
 	<p style="color:red;"><?=$login_response->error->message;?></p>

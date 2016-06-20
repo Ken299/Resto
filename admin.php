@@ -125,13 +125,13 @@
 	<div id="tab1" class="tab-pane fade in active">
 	<h2 align="center" style="color: white;">Kontode haldamine</h2>
 	<br>
-	<div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
+	<div class="col-md-4 col-md-offset-4" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 		<br>
-		<table class="table table-hover">
+		<table class="table table-hover" align="center">
 			<tr>
-				<th style=color:white>Kasutajanimi</th>
-				<th style=color:white>Õigused</th>
-				<th style=color:white>Eemalda</th>
+				<th style="text-align: center; color:white">Kasutajanimi</th>
+				<th style="text-align: center; color:white">Õigused</th>
+				<th style="text-align: center; color:white">Eemalda</th>
 			</tr>
 			<?php
 				$yhendus=new mysqli("localhost", "if13", "ifikad", "if13_leetussa");

@@ -14,14 +14,12 @@
 		if (isset($_POST['pagenr'])){
 			// Otsib välja vajalikud postitused olenevalt lehest.
 			$currPage = $_POST['pagenr'] - 1;
-			
-			
-			$topResult = $postTotal - 5 * $currPage;
-			$lastResult = $topResult - 5;
+			$startIndex = $currPage * 5;
+	
 			
 			$stmt = $yhendus->query("SELECT * FROM postitused 
-									 WHERE post_ID <= '$topResult'
-									 AND post_ID > '$lastResult'");
+									 ORDER BY post_ID DESC
+									 LIMIT $startIndex,5");
 			$stmt->execute();
 			
 			$result = $stmt->fetchAll();
