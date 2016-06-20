@@ -304,97 +304,44 @@
 							var TableRow = "<tr class='tableView'>";
 							$.each(value, function (key, val){
 								var GET = <?php echo json_encode($_GET); ?>;
-								//if(key != 'confirmed'){
-									console.log(key + " "+ val);
-									if(key == 'bronn_ID'){
-										bronnID = val;
-										TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
-										console.log(bronnID);
-										if(GET.hasOwnProperty('editConfirmed') && GET.editConfirmed == bronnID){ 
-											TableRow += '<td><a class=confirmInfo href=?dateBtn='+$(e.target).attr('id')+'#tab2 name='+bronnID+' >Salvesta</a></td>';
-										}else{
-											TableRow += '<td><a href=?editConfirmed='+val+'&dateBtn='+$(e.target).attr('id')+'#tab2>Muuda</a></td>';
-										}
-									}
-									if(key != 'confirmed'){
-										
-									
-									
-									
-									//onsole.log(GET.editConfirmed);
-									/*if(typeof GET == 'editConfirmed'){
-										console.log("tere");
-									}*/
-									if(GET.hasOwnProperty('editConfirmed') && GET.editConfirmed == bronnID ){
-										console.log("editconf: "+GET.editConfirmed);
-										console.log("bronnid: "+bronnID);
-										//if(GET.editConfirmed == bronnID){
-											
-											console.log(bronnID);
-											
-											if(key =='arv'){
-												TableRow += '<td><input style=color:black id=arvVal value='+val+' /></input></td>';
-											}
-											if(key == 'nimi'){
-												TableRow += '<td>' + val + '</td>';
-											}
-											if(key == 'email'){
-												TableRow += '<td>' + val + '</td>';
-											}
-											if(key == 'telefon'){
-												TableRow += '<td>' + val + '</td>';
-											}
-											if(key == 'aeg'){
-												TableRow += '<td align=center><input style=color:black id=aegVal value='+val+' /></input></td>';
-											}
-											if(key == 'kuupaev'){
-												TableRow += '<td align=center><input style=color:black class=kuupaevVal type=text name=kuupaevVal id=datepicker2 onmousedown=datepick(); value='+val+' ></input></td>';
-											}
-											if(key == 'lisa'){
-												TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black value='+val+'>'+val+'</textarea></td>';
-											}
-										//}else{
-											//TableRow += '<td><a href=?editConfirmed='+val+'&dateBtn='+$(e.target).attr('id')+'#tab2>Muuda</a></td>';
-											
-										//}
-									}else if(key != 'bronn_ID'){
-										
-										TableRow += '<td>' + val + '</td>';
-									}
-									}
-									
-								//}
-								/*if(key !='confirmed'){
-									
+								console.log(key + " "+ val);
+								if(key == 'bronn_ID'){
+									bronnID = val;
+									TableRow +="<td><button class='deleteBtn btn btn-restoran' name="+val+" id='delete'>Kustuta broneering</button></td>";
 									console.log(bronnID);
-									if(GET.hasOwnProperty('editConfirmed')){
-										if(GET.editConfirmed == bronnID){
-											if(key =='arv'){
-												TableRow += '<td><input style=color:black id=arvVal value='+val+' /></input></td>';
-											}
-											if(key == 'nimi'){
-												TableRow += '<td>' + val + '</td>';
-											}
-											if(key == 'email'){
-												TableRow += '<td>' + val + '</td>';
-											}
-											if(key == 'telefon'){
-												TableRow += '<td>' + val + '</td>';
-											}
-											if(key == 'aeg'){
-												TableRow += '<td align=center><input style=color:black id=aegVal value='+val+' /></input></td>';
-											}
-											if(key == 'kuupaev'){
-												TableRow += '<td align=center><input style=color:black class=kuupaevVal type=text name=kuupaevVal id=datepicker2 onmousedown=datepick(); value='+val+' ></input></td>';
-											}
-											if(key == 'lisa'){
-												TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black value='+val+'>'+val+'</textarea></td>';
-											}
-										}
+									if(GET.hasOwnProperty('editConfirmed') && GET.editConfirmed == bronnID){ 
+										TableRow += '<td><a class=confirmInfo href=?dateBtn='+$(e.target).attr('id')+'#tab2 name='+bronnID+' >Salvesta</a></td>';
 									}else{
+										TableRow += '<td><a href=?editConfirmed='+val+'&dateBtn='+$(e.target).attr('id')+'#tab2>Muuda</a></td>';
+									}
+								}
+								if(key != 'confirmed'){
+									if(GET.hasOwnProperty('editConfirmed') && GET.editConfirmed == bronnID ){
+										if(key =='arv'){
+											TableRow += '<td><input style=color:black id=arvVal value='+val+' /></input></td>';
+										}
+										if(key == 'nimi'){
+											TableRow += '<td>' + val + '</td>';
+										}
+										if(key == 'email'){
+											TableRow += '<td>' + val + '</td>';
+										}
+										if(key == 'telefon'){
+											TableRow += '<td>' + val + '</td>';
+										}
+										if(key == 'aeg'){
+											TableRow += '<td align=center><input style=color:black id=aegVal value='+val+' /></input></td>';
+										}
+										if(key == 'kuupaev'){
+											TableRow += '<td align=center><input style=color:black class=kuupaevVal type=text name=kuupaevVal id=datepicker2 onmousedown=datepick(); value='+val+' ></input></td>';
+										}
+										if(key == 'lisa'){
+											TableRow += '<td align=center><textarea class=form-control id=textareaVal style=color:black value='+val+'>'+val+'</textarea></td>';
+										}
+									}else if(key != 'bronn_ID'){
 										TableRow += '<td>' + val + '</td>';
 									}
-								}*/
+								}
 							});
 							TableRow += "</tr>";
 							$(table).append(TableRow);
