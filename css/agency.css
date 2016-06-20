@@ -5,10 +5,13 @@ body {
 
 .text-muted {
   color: #FFFFFF;
+    text-align: justify;
+    
 }
 
 .text-primary {
   color: #5e0833;
+    
 }
 
 p {
@@ -805,7 +808,7 @@ body {
   background-color: rgba(70, 34, 23, 0);
 }
 #map{
-	width: 1200px;
+	width: 640px;
 	height: 480px;
 }
 @media (max-width:1200px){
