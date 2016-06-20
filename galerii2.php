@@ -1,6 +1,6 @@
 <?php
 
-   $files = glob("php/images2/image_uploads/*.*");
+   $files = glob("images2/image_uploads/*.*");
 
   for ($i=0; $i<count($files); $i++)
 

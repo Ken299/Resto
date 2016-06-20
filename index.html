@@ -343,17 +343,12 @@
 				<script>
 					request = $.ajax({
 						url: "galerii2.php",
-						
 					});
 					request.done(function(response, textStatus, jqXHR){
 					console.log(response);
-						//var item = JSON.parse(response);
 						
 						this.change = document.getElementById("galerii");
 						this.change.innerHTML = response;
-						//HTML = item;
-						//this.change.innerHTML +=item;
-						
 					});
 				</script>
 			</div>
