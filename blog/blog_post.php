@@ -15,6 +15,8 @@
 		<link rel="stylesheet" type="text/css" href="css/blogpost.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="tinymce/tinymce.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/CustomAdmin.css" />
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 		<script>
 			var picSet = 0;
 		
@@ -23,7 +25,7 @@
 				// Käivitab TinyMCE liidese koos vajalike seadistustega
 				tinymce.init({
 								selector: "textarea",
-								skin: "lightgray",
+								skin: "custom",
 								width: 1000,
 								height: 200,
 								automatic_uploads: false,
@@ -164,18 +166,23 @@
 			}
 		</script>
 	</head>
-	<div class="page-header">
-		<li class="menu-item"><a href="../php/logout.php" class="menu-link">Logi välja</a></li>
-	</div>
 	<body>
+	<nav class="navbar navbar-inverse">
+	<div class="navbar-header">
+	<p><a href="admin.php"><img src="../img/relatedposts/manna.png" width="50px" height="50px"></a><span style="color: white;" class="MVD"> Manna Va Doosa blogi</span></p>
+	</div>
+	<p align="right" style="margin-right: 40px; margin-top: 15px;"class="menu-item"><a href="../php/logout.php" class="btn btn-restoran">Logi välja</a></p>
+	</nav>
+	<br><br><br>
+	<div class="col-md-7 col-md-offset-2" align="center" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 		<!-- Form uue pildi üles laadimiseks -->
 		<form id="laePilt" method="post" enctype="multipart/form-data">
-				<p>Lae uus pilt:</p>
-				<input type="file" name="fileToUpload" id="fileToUpload"></br> </br>
+				<h2 style="color: white; font-family: Montserrat;">Uue pildi lisamine</h2>
+				<input type="file" name="fileToUpload" id="fileToUpload" style="border: 1px solid white;"></br> </br>
 				<input type="submit" value="Lae" name="submit">
 		</form> </br>
 		
-		<p>Olemasolevad pildid:</p>
+		<h2 style="color: white; font-family: Montserrat;">Vali pilt:</h2>
 		<!-- Siiakse laetakse olemasolevad pildid -->
 		<div id="images"></div>
 		
@@ -183,14 +190,17 @@
 		<script src="js/imgSelect.js"></script>
 		
 		<!-- Form postituse tegemiseks blogisse -->
+		<br><br>
+		<h2 style="color: white; font-family: Montserrat;">Lisa pealkiri</h2>
 		<div id="sisestus">
 			<form id="laePost" method="post" enctype="multipart/form-data" novalidate>
 				<input type="hidden" id="pic" name="pic" value="">
 				<input type="hidden" id="autor" name="autor" value="">
-				<input type="text" name="pealkiri" id="pealkiri" placeholder="Pealkiri" onkeyup="validation()"> </br> </br>
+				<input type="text" name="pealkiri" id="pealkiri" placeholder="Pealkiri" size="165" style="height: 50px;" onkeyup="validation()"> </br> </br>
 				<textarea name="sisu" id="sisu"></textarea> </br> </br>
-				<input id="btn_post" type="submit" value="Postita" name="submit" disabled="true">
+				<input id="btn_post" class="btn btn-success" type="submit" value="Postita" name="submit" disabled="true">
 			</form> </br>
+		</div>
 		</div>
 		
 		<!-- Siia läheks link blogipostitusele -->
