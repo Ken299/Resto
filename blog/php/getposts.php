@@ -29,7 +29,7 @@
 		} else if (isset($_POST['currPost'])){
 			// Otsib välja kuni kolm eelnevat postitust.
 			$currPost = $_POST['currPost'];
-			$postAmount = 10; // Mitu eelnevat postitust leida
+			$postAmount = 3; // Mitu eelnevat postitust leida
 			
 			$stmt = $yhendus->query("SELECT * FROM postitused 
 									 WHERE post_ID < '$currPost'

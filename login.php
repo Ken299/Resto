@@ -74,6 +74,7 @@
 				//läks edukalt, peab sessiooni salvestama
 				print_r($login_response);
 				$_SESSION["rights"] = $login_response->success->user->rights;
+				$_SESSION["nimi"] = $login_response->success->user->nimi;
 					if($_SESSION["rights"]==1){
 						echo "broneeringu lehele2";
 						header("Location:admin.php");

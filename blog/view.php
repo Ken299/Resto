@@ -46,6 +46,8 @@
 				
 				$("#cover").attr("src", data.img);
 				$("#title").text(data.pealkiri);
+				$("#autor").text(data.autor);
+				$("#kuupaev").text(data.kuupaev.slice(0,10));
 				$("#body_text").html(data.sisu);
 				disablePrev();
 				disableNext();
@@ -130,8 +132,10 @@
 			<!-- Sisu -->
 			<div id="content">
 				<img id="cover" src="">
-				<h1 id="title">
-				</h1>
+				<h1 id="title"></h1>
+				<div id="info">
+					<p>Autor: <span id="autor"></span> | <span id="kuupaev"></span></p>
+				</div>
 				<div id="body_text">
 					
 				</div>
