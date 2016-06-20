@@ -35,13 +35,15 @@
 		<!-- Siia läheb posti tiitel -->
 		<title>Postitus</title>
 		<meta charset="UTF-8">
-		<!-- <link rel="stylesheet" type="text/css" href="css/blog.css"> -->
+		<link rel="stylesheet" type="text/css" href="css/view.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script>
 			var data = JSON.parse(<?php echo json_encode($result); ?>)[0];
 			var maxID = JSON.parse(<?php echo $postTotal['maxID'] ?>);
 			
 			$(document).ready(function(){
+				getSideBarPosts();
+				
 				$("#cover").attr("src", data.img);
 				$("#title").text(data.pealkiri);
 				$("#body_text").html(data.sisu);
@@ -49,13 +51,15 @@
 				disableNext();
 				
 				$("#btn_prev").click(function(){
-					console.log("Test");
 					window.location = "view.php?id=" + parseInt(data.post_ID - 1);
 				});				
 				
 				$("#btn_next").click(function(){
-					console.log("Test");
 					window.location = "view.php?id=" + parseInt(parseInt(data.post_ID) + 1);
+				});				
+				
+				$("#btn_back").click(function(){
+					window.location = "blog.html";
 				});
 			});
 			
@@ -70,12 +74,42 @@
 					$("#btn_next").attr("disabled", true);
 				}
 			}
+			
+			// Võtab requestiga külgribale 
+			function getSideBarPosts() {	
+				$.ajax({
+					type: "POST",
+					url: "php/getposts.php",
+					data:{"currPost": data.post_ID},
+					success: function(data) {
+						handleData(data);
+					}
+				});
+			}
+			
+			function handleData(data) {
+				var results = jQuery.parseJSON(data);
+				
+				for (var i = results.length - 1; i >= 0; i--){
+					$("#side").append("<div class='otherArticle' id='"+results[i].post_ID+"'></div>");
+					$("#"+results[i].post_ID).append("<p>"+results[i].pealkiri+"</p>");
+					// Lisab click eventi, mille abil edastatakse id, et kuvada kogu postitust.
+					$("#"+results[i].post_ID).bind("click", "div", function(e) {
+						var target = $(e.target);
+						if (target.is("p") || target.is("h1")) {
+							window.location = "view.php?id=" + target.parent().attr("id") ;
+						}
+					});
+				}
+
+			}
 		</script>
 	</head>
 	
 	<body>
 		<div id="fb-root"></div>
 		<script>
+			// Facebook API käivitamine
 			(function(d, s, id) {
 				var js, fjs = d.getElementsByTagName(s)[0];
 				if (d.getElementById(id)) {
@@ -86,8 +120,11 @@
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		</script>
-		<input type="button" id="btn_prev" value="Eelmine">
-		<input type="button" id="btn_next" value="Järgmine">
+		<div id="nav">
+			<input type="button" id="btn_prev" value="Eelmine">
+			<input type="button" id="btn_next" value="Järgmine">
+			<input type="button" id="btn_back" value="Tagasi">
+		</div>
 		<!-- Siia tuleb kogu postitus koos kaasneva infoga -->
 		<div id="post">
 			<!-- Sisu -->
@@ -101,8 +138,11 @@
 			</div>
 			<!-- Siia alla lükkaks sotisiaalmeedia lingid. Vb tagid ka? -->
 			<div id="bottom">
+				<!-- Facebooki Like nupp -->
 				<div class="fb-like" data-href="http://greeny.cs.tlu.ee/~ottismi/Resto/blog/view.php?id=<?php echo $_GET["id"] ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 			</div>
+		</div>
+		<div id="side">
 		</div>
 
 	</body>

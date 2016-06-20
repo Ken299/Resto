@@ -11,7 +11,7 @@ $('#images').on("click", "img", function (e) {
 		$("#"+prevImg).css("border", "solid 1px black");
 	} else if (selected == 0) {
 		// Seni kuni pole ühtegi pilti valitud, ei saa postitada.
-		$("#btn_post").removeAttr("disabled");
+		validation(1);
 	}
 	
 	prevImg = e.target.id;

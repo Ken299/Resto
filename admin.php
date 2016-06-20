@@ -61,7 +61,9 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/CustomAdmin.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <head>
 	<title>Admini leht</title>
 </head>
@@ -69,7 +71,7 @@
 	<script>
 		$(document).ready(function(){
 			$(".deleteBtn").click(function(event){
-				var confirm1 = confirm('Oled kindel, et soovid kustutada kasutajat?');
+				var confirm1 = confirm('Oled kindel, et soovid kasutajat kustutada?');
 				if(confirm1){
 					request = $.ajax({
 						url: "php/deleteUser.php",
@@ -87,6 +89,20 @@
 		});
 		
 	</script>
+	<script>
+	$(document).ready(function() {
+	$('a[data-confirm]').click(function(ev) {
+		var href = $(this).attr('href');
+		if (!$('#dataConfirmModal').length) {
+			$('body').append('<div id="dataConfirmModal" class="modal" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel">Please Confirm</h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div>');
+		} 
+		$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+		$('#dataConfirmOK').attr('href', href);
+		$('#dataConfirmModal').modal({show:true});
+		return false;
+	});
+});
+</script>
 	<nav class="navbar navbar-inverse">
 	<div class="navbar-header">
 	<p><a href="admin.php"><img src="img/relatedposts/manna.png" width="50px" height="50px"></a><span style="color: white;" class="MVD"> Manna Va Doosa kontohaldus</span></p>
@@ -94,9 +110,61 @@
 	<p align="right" style="margin-right: 40px; margin-top: 15px;"class="menu-item"><a href="php/logout.php" class="btn btn-restoran">Logi välja</a></p>
 	</nav>
 	<br><br><br>
+	<ul class="nav nav-tabs" id="myTab">
+		<li class="active"><a href="#tab1">Kasutajad</a></li>
+		<li><a href="#tab2">Uus kasutaja</a></li>
+	</ul>
+	<div class="tab-content">
+	<br>
+	<div id="tab1" class="tab-pane fade in active">
+	<h2 align="center" style="color: white;">Kontode haldamine</h2>
+	<br>
+	<div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
+		<br>
+		<table class="table table-hover">
+			<tr>
+				<th style=color:white>Kasutajanimi</th>
+				<th style=color:white>Õigused</th>
+				<th style=color:white>Eemalda</th>
+			</tr>
+			<?php
+				$yhendus=new mysqli("localhost", "if13", "ifikad", "if13_leetussa");
+				$stmt = $yhendus->prepare("SELECT id, username, rights FROM users");
+				$stmt->bind_result($id, $username, $rights);
+				$stmt->execute();
+				while($stmt->fetch()){
+					echo "<tr>";
+					if($rights==1){
+						echo "
+							<td style=color:white>$username</td>
+							<td style=color:white>Admin</td>
+							<td><input type='image' src='img/delete.png' style='width: 30px; height: 30px;' class=deleteBtn name=$id></input></td>
+						";
+					}
+					if($rights==2){
+						echo "
+							<td style=color:white>$username</td>
+							<td style=color:white>Broneerija</td>
+							<td><input type='image' src='img/delete.png' style='width: 30px; height: 30px;' class=deleteBtn name=$id></input></td>
+						";
+					}
+					if($rights==3){
+						echo "
+							<td style=color:white>$username</td>
+							<td style=color:white>Blogi</td>
+							<td><input type='image' src='img/delete.png' style='width: 30px; height: 30px;' class=deleteBtn name=$id></input></td>
+						";
+					}
+					echo "</tr>";
+				}
+			?>
+		</table>
+	</div>
+	</div>
+	<div id="tab2" class="tab-pane fade">
 	<div class="col-md-2 col-md-offset-5" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 		<div id="register-view">
-			<form method="post">
+			<form method="post" align="center">
 				<h1 style="color: white;">Loo uus konto</h1>
 			
 				<?php if(isset($create_response->error)):?>
@@ -113,9 +181,8 @@
 					<label for="create_pw" style="color: white;">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
 					<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
 				</fieldset>
-				<div class="container">
+				<div>
 					<form role="form" name="rights">
-						<span class="error" style="color:red;"><?php echo $create_radio_error ?></span>
 						<label class="radio-inline" style="color: white;">
 							<input type="radio" name="optradio" value="1">Admin</input>
 						</label>
@@ -125,6 +192,7 @@
 						<label class="radio-inline" style="color: white;">
 							<input type="radio" name="optradio" value="3">Blogi</input>
 						</label>
+						<br><span class="error" style="color:red;"><?php echo $create_radio_error ?></span>
 					</form>
 					<div>
 						<input type="submit" class="btn btn-restoran" name="create" value='Loo konto' style="margin-top: 35px;"/>
@@ -134,46 +202,25 @@
 			</form>
 		</div>
 	</div>
-	<div>
-		<table border=1>
-			<tr>
-				<th style=color:white>Kasutajanimi</th>
-				<th style=color:white>Õigused</th>
-				<th style=color:white>Kustuta</th>
-			</tr>
-			<?php
-				$yhendus=new mysqli("localhost", "if13", "ifikad", "if13_leetussa");
-				$stmt = $yhendus->prepare("SELECT id, username, rights FROM users");
-				$stmt->bind_result($id, $username, $rights);
-				$stmt->execute();
-				while($stmt->fetch()){
-					echo "<tr>";
-					if($rights==1){
-						echo "
-							<td style=color:white>$username</td>
-							<td style=color:white>Admin</td>
-							<td><button class=deleteBtn name=$id> Kustuta</button></td>
-						";
-					}
-					if($rights==2){
-						echo "
-							<td style=color:white>$username</td>
-							<td style=color:white>Broneerija</td>
-							<td><button class=deleteBtn name=$id> Kustuta</button></td>
-						";
-					}
-					if($rights==3){
-						echo "
-							<td style=color:white>$username</td>
-							<td style=color:white>Blogi</td>
-							<td><button class=deleteBtn name=$id> Kustuta</button></td>
-						";
-					}
-					echo "</tr>";
-				}
-			?>
-		</table>
 	</div>
+	</div>
+	<!-- tabi salvestamine refreshil -->
+		<script>
+		$('#myTab a').click(function(e) {
+			e.preventDefault();
+			$(this).tab('show');
+		});
+
+		// store the currently selected tab in the hash value
+		$("ul.nav-tabs > li > a").on("shown.bs.tab", function(e) {
+			var id = $(e.target).attr("href").substr(1);
+			window.location.hash = id;
+		});
+
+		// on load of the page: switch to the currently selected tab
+		var hash = window.location.hash;
+		$('#myTab a[href="' + hash + '"]').tab('show');
+		</script>
 	
 </body>
 </html>
