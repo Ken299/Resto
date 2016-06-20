@@ -34,7 +34,11 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/style1.css" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
    
+   <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
     
 
 </head>
@@ -397,7 +401,7 @@
 					document.getElementById("txt_seats").innerHTML = "Vabu kohti: "+xmlhttp.responseText;
 				}
 			};
-			xmlhttp.open("GET","getdates.php?q="+str,true);
+			xmlhttp.open("GET","php/getdates.php?q="+str,true);
 			xmlhttp.send();
 		}
 		
@@ -414,7 +418,7 @@
 				$inputs.prop("disabled", true);
 
 				request = $.ajax({
-					url: "reserving.php",
+					url: "php/reserving.php",
 					type: "post",
 					data: serializedData
 				});
@@ -453,30 +457,30 @@
 							</div>
                             <div class="col-md-6" align='center'>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Teie nimi *" name="name" id="name" required data-validation-required-message="Please enter your name.">
+                                    <input type="text" class="form-control" placeholder="Teie nimi *" name="name" id="name" required>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Teie Email *" name="email" id="email" required data-validation-required-message="Please enter your email address.">
+                                    <input type="email" class="form-control" placeholder="Teie Email *" name="email" id="email" required>
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control" placeholder="Teie telefon *" name="telefon" id="telefon" required data-validation-required-message="Please enter your phone number.">
+                                    <input type="tel" class="form-control" placeholder="Teie telefon *" name="telefon" id="telefon" required>
                                     <p class="help-block text-danger"></p>
                                 </div>
 								<div class="form-group">
-                                    <input type="number" class="form-control" placeholder="Inimeste arv *" name="arv" id="arv" required data-validation-required-message="Please enter your phone number.">
+                                    <input type="number" class="form-control" placeholder="Inimeste arv *" name="arv" id="arv" required>
                                     <p class="help-block text-danger"></p>
                                 </div>
 								<div class="form-group">
-                                    <input type="text" onchange="showAvailability(this.value)" class="form-control" placeholder="Kuupäev *" name="kuupaev" id="datepicker" required data-validation-required-message="Please enter your phone number.">
+                                    <input type="text" onchange="showAvailability(this.value)" class="form-control" placeholder="Kuupäev *" name="kuupaev" id="datepicker" required>
                                     <p class="help-block text-danger"></p>
 									<p id="txt_seats"></p>
                                 </div>
 								<div class="form-group">
 									<select name="tunnid" id="tunnid">
-										<option value="8">8</option>
-										<option value="9">9</option>
+										<option value="08">08</option>
+										<option value="09">09</option>
 										<option value="10">10</option>
 										<option value="11">11</option>
 										<option value="12">12</option>
@@ -492,16 +496,14 @@
 									</select> :
 									<select name="minutid" id="minutid">
 										<option value="00">00</option>
-										<option value="10">10</option>
-										<option value="20">20</option>
+										<option value="15">15</option>
 										<option value="30">30</option>
-										<option value="40">40</option>
-										<option value="50">50</option>
+										<option value="45">45</option>
 									</select>
                                     <p class="help-block text-danger"></p>
                                 </div>
 								<div class="form-group">
-                                    <textarea class="form-control" maxlength="140" placeholder="Lisainfo *" name="lisainfo" id="lisainfo" required data-validation-required-message="Kirjuta lisainfo hobune."></textarea>
+                                    <textarea class="form-control" maxlength="140" placeholder="Lisainfo *" name="lisainfo" id="lisainfo" required></textarea>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -598,8 +600,7 @@
   
     
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
