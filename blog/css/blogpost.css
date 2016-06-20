@@ -13,6 +13,11 @@
 	height: 200px;
 }
 
+.img a:hover {
+    background: #c93;
+        display:block;
+}
+
 #sisestus {
 	margin-top: 10px;
 }
