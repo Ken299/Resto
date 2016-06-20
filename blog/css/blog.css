@@ -1,19 +1,86 @@
+body{
+	background-image: url("../../images/1.jpg");
+	background-attachment: fixed;
+}
 .post {
 	margin: auto;
 	width: 500px;
 	border-style: solid;
 	border-width: 2px;
 	margin-bottom: 5px;
+	border-radius: 20px;
+	padding: 20px;
+	margin-bottom: 20px;
 }
-
-.post > p, img, h1 {
+.post:hover{
+	border-color: grey;
+	background-color: rgba(192,192,192,0.1);
+}
+.post img{
 	margin: auto;
 	width: 300px;
 }
+.post h1{
+	color: white;
+}
 
-#pager{
+.pagerr{
 	width: 400px;
 	height: 40px;
 	margin: auto;
 	padding-bottom: 20px;
+	position: relative;
+	left: 150px;
+}
+p {
+	color:white;
+}
+textarea {
+    resize: none;
+}
+
+.btn-restoran { 
+  color: #FFFFFF; 
+  background-color: #1a000d; 
+  border-color: #1a000d; 
+} 
+ 
+.btn-restoran:hover, 
+.btn-restoran:focus, 
+.btn-restoran:active, 
+.btn-restoran.active, 
+.open .dropdown-toggle.btn-restoran { 
+  color: #FFFFFF; 
+  background-color: #49247A; 
+  border-color: #1a000d; 
+} 
+ 
+.btn-restoran:active, 
+.btn-restoran.active, 
+.open .dropdown-toggle.btn-restoran { 
+  background-image: none; 
+} 
+ 
+.btn-restoran.disabled, 
+.btn-restoran[disabled], 
+fieldset[disabled] .btn-restoran, 
+.btn-restoran.disabled:hover, 
+.btn-restoran[disabled]:hover, 
+fieldset[disabled] .btn-restoran:hover, 
+.btn-restoran.disabled:focus, 
+.btn-restoran[disabled]:focus, 
+fieldset[disabled] .btn-restoran:focus, 
+.btn-restoran.disabled:active, 
+.btn-restoran[disabled]:active, 
+fieldset[disabled] .btn-restoran:active, 
+.btn-restoran.disabled.active, 
+.btn-restoran[disabled].active, 
+fieldset[disabled] .btn-restoran.active { 
+  background-color: #1a000d; 
+  border-color: #1a000d; 
+} 
+ 
+.btn-restoran .badge { 
+  color: #1a000d; 
+  background-color: #FFFFFF; 
 }
