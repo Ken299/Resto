@@ -12,11 +12,11 @@
 	<head>
 		<title>Blogi postitamine</title>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="css/blogpost.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script src="tinymce/tinymce.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../css/CustomAdmin.css" />
-		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 		<script>
 			var picSet = 0;
 		
@@ -110,7 +110,9 @@
 						contentType: false,
 						processData: false,
 						success: function (data) {
-							window.location = "view.php?id=" + data;
+							console.log(data);
+							$("#laePost")[0].reset();
+							$("#tulemus").append("<p>Postitatud!</p>");
 						},
 						error: function (data) {
 							console.log(data);
@@ -167,14 +169,16 @@
 	<body>
 	<nav class="navbar navbar-inverse">
 	<div class="navbar-header">
-	<p><a href="admin.php"><img src="../img/relatedposts/manna.png" width="50px" height="50px"></a><span style="color: white;" class="MVD"> Manna Va Doosa blogi</span></p>
+	<p><a href="blog_post.php"><img src="../img/relatedposts/manna.png" width="50px" height="50px"></a><span style="color: white;" class="MVD"> Manna Va Doosa blogi</span></p>
 	</div>
 	<p align="right" style="margin-right: 40px; margin-top: 15px;"class="menu-item"><a href="../php/logout.php" class="btn btn-restoran">Logi välja</a></p>
 	</nav>
+	
 	<br><br><br>
 	<div class="col-md-7 col-md-offset-2" align="center" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
 		<!-- Form uue pildi üles laadimiseks -->
 		<form id="laePilt" method="post" enctype="multipart/form-data">
+		<p align="left" style="margin-right: 40px; margin-top: 15px;"class="menu-item"><a href="blog.html" class="btn btn-restoran">Blogi juurde</a></p>
 				<h2 style="color: white; font-family: Montserrat;">Uue pildi lisamine</h2>
 				<input type="file" name="fileToUpload" id="fileToUpload" style="border: 1px solid white;"></br> </br>
 				<input type="submit" value="Lae" name="submit">
@@ -200,5 +204,8 @@
 			</form> </br>
 		</div>
 		</div>
+		
+		<!-- Siia läheks link blogipostitusele -->
+		<div id="tulemus"></div>
 	</body>
 </html>

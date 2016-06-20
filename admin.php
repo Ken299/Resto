@@ -70,7 +70,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/CustomAdmin.css" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <head>
 	<title>Admini leht</title>
 </head>
