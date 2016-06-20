@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once("pdo_conf.php");
 
 	$img_name = $_POST['pic'];

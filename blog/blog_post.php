@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once('../php/functions.php');
 	if(($_SESSION["rights"])!=3){
 		// kui on,suunan data lehele

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	$host = 'localhost';
 	$db   = 'if13_mikkottis';
 	$user = 'if13';
