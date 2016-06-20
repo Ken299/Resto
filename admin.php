@@ -45,7 +45,7 @@
 			}
 			
 			//võib kasutaja teha
-			if(	$create_uname_error == "" && $create_pw_error == "" && $create_name_error == "" && create_radio_error == ""){
+			if(	$create_uname_error == "" && $create_pw_error == "" && $create_name_error == "" && $create_radio_error == ""){
 				$password_hash = hash("sha512", $create_pw);
 				//käivitame funktsiooni
 				$create_response = $User->createUser($create_uname, $password_hash, $create_name, $rights);
@@ -185,11 +185,11 @@
 					<input type="text" class="form-control" name="create_uname" placeholder="Kasutajanimi" value="<?php if(isset($_POST["create_uname"])){echo $create_uname;}?>" />
 				</fieldset>
 				<fieldset class="form-group">	
-					<label for="create_pw" style="color: white;">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
+					<label for="create_pw" style="color: white;">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error;?></span>
 					<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
 				</fieldset>
 				<fieldset class="form-group">	
-					<label for="create_name" style="color: white;">Nimi</label><span class="error" style="color:red;"> <?php echo $create_name_error?></span>
+					<label for="create_name" style="color: white;">Nimi</label><span class="error" style="color:red;"> <?php echo $create_name_error;?></span>
 					<input type="text" class="form-control" name="create_name" placeholder="Nimi" />
 				</fieldset>
 				<div>
