@@ -39,6 +39,8 @@
    <!-- jQuery -->
     <script src="js/jquery.js"></script>
    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js" integrity="sha256-DI6NdAhhFRnO2k51mumYeDShet3I8AKCQf/tf7ARNhI=" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="highslide/highslide-with-gallery.js"></script>
+	<link rel="stylesheet" type="text/css" href="highslide/highslide.css" />
     
 
 </head>
@@ -337,6 +339,24 @@
                     <h3 class="section-subheading text-muted"></h3>
                 </div>
             </div>
+			<div class="highslide-gallery" id="galerii">
+				<script>
+					request = $.ajax({
+						url: "galerii2.php",
+						
+					});
+					request.done(function(response, textStatus, jqXHR){
+					console.log(response);
+						//var item = JSON.parse(response);
+						
+						this.change = document.getElementById("galerii");
+						this.change.innerHTML = response;
+						//HTML = item;
+						//this.change.innerHTML +=item;
+						
+					});
+				</script>
+			</div>
         </div>
     </section>
 
@@ -562,7 +582,7 @@
 		});
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA31OYTP1W8e8bbX-nj1ZsfawWpVUuQFM4&callback=initMap" async defer></script>
         <p align="center" style=color:#FFF;>
                 <br>
                 Tallinna Ülikool
