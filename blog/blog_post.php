@@ -19,7 +19,8 @@
 			var picSet = 0;
 		
 			$(document).ready(function(){
-		
+				console.log("<?php echo $_SESSION["nimi"]; ?>");
+				$("#autor").val("<?php echo $_SESSION["nimi"]; ?>");
 				// Käivitab TinyMCE liidese koos vajalike seadistustega
 				tinymce.init({
 								selector: "textarea",
@@ -185,6 +186,7 @@
 		<div id="sisestus">
 			<form id="laePost" method="post" enctype="multipart/form-data" novalidate>
 				<input type="hidden" id="pic" name="pic" value="">
+				<input type="hidden" id="autor" name="autor" value="">
 				<input type="text" name="pealkiri" id="pealkiri" placeholder="Pealkiri" onkeyup="validation()"> </br> </br>
 				<textarea name="sisu" id="sisu"></textarea> </br> </br>
 				<input id="btn_post" type="submit" value="Postita" name="submit" disabled="true">

@@ -5,42 +5,42 @@
 			$this->connection = $mysqli;
 		}
 		function createUser($create_uname, $create_pw, $rights){
-		//objekt et saata tagasi kas errori(id,message) või success(message)
-		$response = new StdClass();
-		
-		$stmt = $this->connection->prepare("SELECT username FROM users WHERE username = ?");
-		$stmt->bind_param("s", $create_uname);
-		$stmt->execute();
-		if($stmt->fetch()){
-			//saadan errori
-			$error = new StdClass();
-			$error->id = 0;
-			$error->message = "Sellise kasutajanimega kasutaja on juba olemas";
-			//error responsele külge
-			$response->error = $error;
-			//peale returni koodi ei vaadata enam funktsioonis
+			//objekt et saata tagasi kas errori(id,message) või success(message)
+			$response = new StdClass();
+			
+			$stmt = $this->connection->prepare("SELECT username FROM users WHERE username = ?");
+			$stmt->bind_param("s", $create_uname);
+			$stmt->execute();
+			if($stmt->fetch()){
+				//saadan errori
+				$error = new StdClass();
+				$error->id = 0;
+				$error->message = "Sellise kasutajanimega kasutaja on juba olemas";
+				//error responsele külge
+				$response->error = $error;
+				//peale returni koodi ei vaadata enam funktsioonis
+				return $response;
+			}
+			//elmine käsk kinni
+			$stmt->close();
+			
+			$stmt = $this->connection->prepare("INSERT INTO users (username, password, rights) VALUES (?, ?, ?)");
+			$stmt->bind_param("sss", $create_uname, $create_pw, $rights);
+			if($stmt->execute()){
+				//salvestas edukalt
+				$success = new StdClass();
+				$success->message = "Kasutaja loomine õnnestus";
+				$response->success = $success;
+			}else{
+				//kui ei läinud edukalt saadan errori
+				$error = new StdClass();
+				$error->id = 2;
+				$error->message = "Midagi läks katki :".$stmt->error;
+				//error responsele külge
+				$response->error = $error;
+			}
+			$stmt->close();
 			return $response;
-		}
-		//elmine käsk kinni
-		$stmt->close();
-		
-		$stmt = $this->connection->prepare("INSERT INTO users (username, password, rights) VALUES (?, ?, ?)");
-		$stmt->bind_param("sss", $create_uname, $create_pw, $rights);
-		if($stmt->execute()){
-			//salvestas edukalt
-			$success = new StdClass();
-			$success->message = "Kasutaja loomine õnnestus";
-			$response->success = $success;
-		}else{
-			//kui ei läinud edukalt saadan errori
-			$error = new StdClass();
-			$error->id = 2;
-			$error->message = "Midagi läks katki :".$stmt->error;
-			//error responsele külge
-			$response->error = $error;
-		}
-		$stmt->close();
-		return $response;
 		}
 		function loginUser($uname, $pw){
 			$response = new StdClass();
@@ -60,9 +60,9 @@
 			}
 			$stmt->close();
 		
-			$stmt = $this->connection->prepare("SELECT rights FROM users WHERE username=? AND password=?");
+			$stmt = $this->connection->prepare("SELECT rights, nimi FROM users WHERE username=? AND password=?");
 			$stmt->bind_param("ss", $uname, $pw);
-			$stmt->bind_result($rights);
+			$stmt->bind_result($rights, $nimi);
 			$stmt->execute();
 			if($stmt->fetch()){
 				$success = new StdClass();
@@ -70,6 +70,7 @@
 				$user = new StdClass();
 				//$user->id = $id_from_db;
 				$user->rights = $rights;
+				$user->nimi = $nimi;
 				//$success->user = $user;
 				$success->user = $user;
 				$response->success = $success;
