@@ -84,7 +84,7 @@
 	}
 	function waitTime(){
 		//document.getElementById("mannalogo2").style = "display: inline;";
-		var logoM = document.getElementsByClassName("mannalogo2");
+		var logoM = document.getElementsByClassName("mannalogo50");
 		logoM[0].style.display = "inline";
 	}
 	
