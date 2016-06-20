@@ -19,7 +19,6 @@
 			var picSet = 0;
 		
 			$(document).ready(function(){
-				console.log("<?php echo $_SESSION["nimi"]; ?>");
 				$("#autor").val("<?php echo $_SESSION["nimi"]; ?>");
 				// Käivitab TinyMCE liidese koos vajalike seadistustega
 				tinymce.init({

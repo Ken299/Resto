@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	$img_name = basename($_FILES["fileToUpload"]["name"]);
 	
 	uploadPic($img_name);

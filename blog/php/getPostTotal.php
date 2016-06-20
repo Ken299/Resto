@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 	require_once("pdo_conf.php");	
 	
-	// Leiab k�rgeima ID postituste tabelis
+	// Leiab kõrgeima ID postituste tabelis
 	$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID FROM postitused");
 	$stmt->execute();
 	

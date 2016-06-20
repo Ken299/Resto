@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	require_once("pdo_conf.php");
 	
 	try {
