@@ -4,7 +4,7 @@
 		function __construct($mysqli){
 			$this->connection = $mysqli;
 		}
-		function createUser($create_uname, $create_pw, $rights){
+		function createUser($create_uname, $create_pw, $create_name, $rights){
 			//objekt et saata tagasi kas errori(id,message) või success(message)
 			$response = new StdClass();
 			
@@ -24,8 +24,8 @@
 			//elmine käsk kinni
 			$stmt->close();
 			
-			$stmt = $this->connection->prepare("INSERT INTO users (username, password, rights) VALUES (?, ?, ?)");
-			$stmt->bind_param("sss", $create_uname, $create_pw, $rights);
+			$stmt = $this->connection->prepare("INSERT INTO users (username, password, nimi, rights) VALUES (?, ?, ?, ?)");
+			$stmt->bind_param("ssss", $create_uname, $create_pw, $create_name, $rights);
 			if($stmt->execute()){
 				//salvestas edukalt
 				$success = new StdClass();
