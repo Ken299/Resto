@@ -15,7 +15,15 @@
 		$stmt->bindParam(":autor", $autor);
 		$stmt->execute();
 		
-		echo "New records created successfully";
+		$stmt->closeCursor();
+		
+		// Leiab kõrgeima ID postituste tabelis
+		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID FROM postitused");
+		$stmt->execute();
+		
+		$postTotal = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		echo $postTotal['maxID'];
 	} catch(PDOException $e) {
 		echo "Error: " . $e->getMessage();
     }

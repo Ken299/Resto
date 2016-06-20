@@ -110,9 +110,7 @@
 						contentType: false,
 						processData: false,
 						success: function (data) {
-							console.log(data);
-							$("#laePost")[0].reset();
-							$("#tulemus").append("<p>Postitatud!</p>");
+							window.location = "view.php?id=" + data;
 						},
 						error: function (data) {
 							console.log(data);
@@ -202,8 +200,5 @@
 			</form> </br>
 		</div>
 		</div>
-		
-		<!-- Siia läheks link blogipostitusele -->
-		<div id="tulemus"></div>
 	</body>
 </html>
