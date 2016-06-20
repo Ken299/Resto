@@ -3,7 +3,7 @@
 	
 	try {
 		// Leiab kõrgeima ID postituste tabelis
-		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID FROM postitused");
+		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID, MIN(post_ID) as minID FROM postitused");
 		$stmt->execute();
 		
 		$postTotal = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -11,7 +11,7 @@
 		$stmt->closeCursor();
 		
 		// Kontrollib, et leht ei hakkaks tegema tööd kui on juba teada, et sellist ID pole olemas
-		if(isset($_GET["id"]) && ($_GET["id"] <= $postTotal["maxID"]) && ($_GET["id"] > 0)){
+		if(isset($_GET["id"]) && ($_GET["id"] <= $postTotal["maxID"]) && ($_GET["id"] >= $postTotal["minID"])){
 			// Leiab õige ID'ga postituse ning võtab sellelt info/sisu
 			$stmt = $yhendus->query("SELECT * FROM postitused WHERE post_ID = " . $_GET["id"]);
 			$stmt->execute();
@@ -38,26 +38,30 @@
 		<link rel="stylesheet" type="text/css" href="css/view.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script>
-			var data = JSON.parse(<?php echo json_encode($result); ?>)[0];
+			var _data = JSON.parse(<?php echo json_encode($result); ?>)[0];
 			var maxID = JSON.parse(<?php echo $postTotal['maxID'] ?>);
+			var minID = JSON.parse(<?php echo $postTotal['minID'] ?>);
+			var prev;
+			var next;
 			
 			$(document).ready(function(){
 				getSideBarPosts();
+				getBeforeAndAfter();
 				
-				$("#cover").attr("src", data.img);
-				$("#title").text(data.pealkiri);
-				$("#autor").text(data.autor);
-				$("#kuupaev").text(data.kuupaev.slice(0,10));
-				$("#body_text").html(data.sisu);
+				$("#cover").attr("src", _data.img);
+				$("#title").text(_data.pealkiri);
+				$("#autor").text(_data.autor);
+				$("#kuupaev").text(_data.kuupaev.slice(0,10));
+				$("#body_text").html(_data.sisu);
 				disablePrev();
 				disableNext();
 				
 				$("#btn_prev").click(function(){
-					window.location = "view.php?id=" + parseInt(data.post_ID - 1);
+					window.location = "view.php?id=" + prev;
 				});				
 				
 				$("#btn_next").click(function(){
-					window.location = "view.php?id=" + parseInt(parseInt(data.post_ID) + 1);
+					window.location = "view.php?id=" + next;
 				});				
 				
 				$("#btn_back").click(function(){
@@ -66,13 +70,13 @@
 			});
 			
 			function disablePrev() {
-				if(data.post_ID == 1){
+				if(_data.post_ID == minID){
 					$("#btn_prev").attr("disabled", true);
 				}
 			}
 			
 			function disableNext() {
-				if(data.post_ID == maxID){
+				if(_data.post_ID == maxID){
 					$("#btn_next").attr("disabled", true);
 				}
 			}
@@ -82,7 +86,7 @@
 				$.ajax({
 					type: "POST",
 					url: "php/getposts.php",
-					data:{"currPost": data.post_ID},
+					data:{"currPost": _data.post_ID},
 					success: function(data) {
 						handleData(data);
 					}
@@ -91,7 +95,6 @@
 			
 			function handleData(data) {
 				var results = jQuery.parseJSON(data);
-				console.log(results);
 				
 				for (var i = 0; i < results.length; i++){
 					$("#side").append("<div class='otherArticle' id='"+results[i].post_ID+"'></div>");
@@ -110,15 +113,22 @@
 				$.ajax({
 					type: "POST",
 					url: "php/getBeforeAndAfter.php",
-					data:{"currPost": data.post_ID},
+					data:{"currPost": _data.post_ID},
 					success: function(data) {
-						handleData(data);
+						handleBeforeAndAFter(data);
 					}
 				});
 			}
 			
 			function handleBeforeAndAFter(data) {
-				
+				var results = jQuery.parseJSON(data);
+				for (var i = 0; i < results.length; i++) {
+					if (parseInt(results[i].post_ID) > parseInt(_data.post_ID)) {
+						next = results[i].post_ID;
+					} else if (parseInt(results[i].post_ID) < parseInt(_data.post_ID)) {
+						prev = results[i].post_ID;
+					}
+				}
 			}
 		</script>
 	</head>
