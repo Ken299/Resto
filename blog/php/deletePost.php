@@ -3,7 +3,6 @@
 	
 	try {
 		if (isset($_POST['currPost'])){
-			// Otsib välja tabelis eelneva ja järgneva postituste ID'd
 			$currPost = $_POST['currPost'];
 			
 			$stmt = $yhendus->query("DELETE FROM postitused WHERE post_ID = '$currPost'");
