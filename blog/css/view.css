@@ -1,5 +1,13 @@
 .otherArticle{
 	border-style: solid;
 	border-width: 1px;
-	width: 200px;
+	width: 250px;
+    height: 40px;
+    
+}
+
+.otherArticle:hover {
+    background-color:rgba(255, 255, 255, 0.75);
+    color: black;
+    box-shadow: 10px 10px 5px #888888;
 }

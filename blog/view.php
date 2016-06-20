@@ -165,9 +165,15 @@
 			}
 		</script>
 	</head>
+    
+    		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+
+    
 	
 	<body>
-		<div id="fb-root"></div>
+		
+        <div class="col-md-8 col-md-offset-2" align="center" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
+        <div id="fb-root"></div>
 		<script>
 			// Facebook API käivitamine
 			(function(d, s, id) {
@@ -180,17 +186,20 @@
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		</script>
+            
+            <br><br>
 		<div id="nav">
-			<input type="button" id="btn_prev" value="Eelmine">
-			<input type="button" id="btn_next" value="Järgmine">
-			<input type="button" id="btn_back" value="Tagasi">
+			<input type="button" class="btn btn-restoran" id="btn_prev" value="Eelmine">
+			<input type="button" class="btn btn-restoran" id="btn_next" value="Järgmine">
+			<input type="button" class="btn btn-restoran" id="btn_back" value="Tagasi">
+            <br><br><br>
 		</div>
 		<div id="special"></div>
 		<!-- Siia tuleb kogu postitus koos kaasneva infoga -->
 		<div id="post">
 			<!-- Sisu -->
 			<div id="content">
-				<img id="cover" src="">
+				<img id="cover" src="" style="max-width: 768px; width:100%;">
 				<h1 id="title"></h1>
 				<div id="info">
 					<p>Autor: <span id="autor"></span> | <span id="kuupaev"></span></p>
@@ -204,9 +213,13 @@
 				<!-- Facebooki Like nupp -->
 				<div class="fb-like" data-href="http://greeny.cs.tlu.ee/~ottismi/Resto/blog/view.php?id=<?php echo $_GET["id"] ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 			</div>
+            <div style="" id="side">
+            <h3>Vaata teisi postitusi</h3>
 		</div>
-		<div id="side">
 		</div>
+            <br><br>
+		
+        </div>
 
 	</body>
 </html>
