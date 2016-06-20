@@ -14,7 +14,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/blogpost.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-		<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+		<script src="tinymce/tinymce.min.js"></script>
 		<script>
 			var picSet = 0;
 		
@@ -23,6 +23,7 @@
 				// Käivitab TinyMCE liidese koos vajalike seadistustega
 				tinymce.init({
 								selector: "textarea",
+								skin: "lightgray",
 								width: 1000,
 								height: 200,
 								automatic_uploads: false,

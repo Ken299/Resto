@@ -91,8 +91,9 @@
 			
 			function handleData(data) {
 				var results = jQuery.parseJSON(data);
+				console.log(results);
 				
-				for (var i = results.length - 1; i >= 0; i--){
+				for (var i = 0; i < results.length; i++){
 					$("#side").append("<div class='otherArticle' id='"+results[i].post_ID+"'></div>");
 					$("#"+results[i].post_ID).append("<p>"+results[i].pealkiri+"</p>");
 					// Lisab click eventi, mille abil edastatakse id, et kuvada kogu postitust.
@@ -103,7 +104,21 @@
 						}
 					});
 				}
-
+			}
+			
+			function getBeforeAndAfter() {	
+				$.ajax({
+					type: "POST",
+					url: "php/getBeforeAndAfter.php",
+					data:{"currPost": data.post_ID},
+					success: function(data) {
+						handleData(data);
+					}
+				});
+			}
+			
+			function handleBeforeAndAFter(data) {
+				
 			}
 		</script>
 	</head>

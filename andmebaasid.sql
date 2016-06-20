@@ -13,7 +13,7 @@ CREATE TABLE bronn(
 CREATE TABLE postitused(
 	post_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	img VARCHAR(150),
-	pealkiri VARCHAR(50),
+	pealkiri TEXT,
 	sisu MEDIUMTEXT,
 	autor VARCHAR(100),
 	kuupaev DATETIME

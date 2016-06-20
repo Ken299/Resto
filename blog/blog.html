@@ -26,6 +26,7 @@
 						$("#pager").pagination("updateItems", maxPosts);
 					},
 					onPageClick: function(pageNumber) {
+						// Kole lahendus
 						pageNr = pageNumber;
 						$("#main").empty();
 						getPosts(pageNr);
@@ -57,7 +58,6 @@
 			
 			// Tegeleb saadud andmetega edasi 
 			function handleData(data) {
-				console.log(data);
 				var results = jQuery.parseJSON(data);
 				for (var i = results.length - 1; i >= 0; i--){
 					$("#main").append("<div class='post' id='"+results[i].post_ID+"'></div>");

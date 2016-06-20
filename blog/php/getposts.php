@@ -31,10 +31,12 @@
 			$currPost = $_POST['currPost'];
 			$postAmount = 3; // Mitu eelnevat postitust leida
 			
-			$stmt = $yhendus->query("SELECT * FROM postitused 
+			$stmt = $yhendus->query("SELECT * FROM postitused
 									 WHERE post_ID < '$currPost'
-									 AND post_ID >= '$currPost' - '$postAmount'
-									 AND post_ID > 0");
+									 AND post_ID > 0
+									 ORDER BY post_ID DESC
+									 LIMIT $postAmount");
+						 
 			$stmt->execute();
 		
 			$result = $stmt->fetchAll();
@@ -43,11 +45,13 @@
 			
 			// Juhul, jääb puudu vanematest artiklitest, hakkab uusi võtma
 			if (count($result) < $postAmount){
+				$postAmount = $postAmount - count($result);
 				$needed = $postAmount - count($result); // Mitu artiklit on juurde vaja leida
 				$stmt = $yhendus->query("SELECT * FROM postitused 
 						 WHERE post_ID <= '$postTotal'
-						 AND post_ID > '$postTotal' - '$needed'
-						 AND post_ID > '$currPost'");
+						 AND post_ID > '$currPost'
+						 ORDER BY post_ID DESC
+						 LIMIT $postAmount");
 				$stmt->execute();
 				 
 				$extraResults = $stmt->fetchAll();
