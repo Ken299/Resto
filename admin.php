@@ -9,9 +9,9 @@
 	//}
 	
 	//muutujad errorite jaoks
-	$create_uname_error = $create_pw_error = $create_radio_error = $uname_error = $pw_error = "";
+	$create_uname_error = $create_pw_error = $create_name_error = $create_radio_error = $uname_error = $pw_error = "";
 	//muutujad väärtuste joks
-	$create_uname = $create_pw = $optradio = $pw = $uname = "";
+	$create_uname = $create_pw = $create_name = $optradio = $pw = $uname = "";
 	if($_SERVER["REQUEST_METHOD"] == "POST"){
 		
 		if(isset($_POST["create"])){
@@ -31,6 +31,13 @@
 					$create_pw = cleanInput($_POST["create_pw"]);
 				}
 			}
+			
+			if(empty($_POST["create_name"])){
+				$create_name_error = "See väli on kohustuslik";
+			}else{
+				$create_name = cleanInput($_POST["create_name"]);
+			}
+			
 			if(empty($_POST["optradio"])){
 				$create_radio_error = "See väli on kohustuslik";
 			}else{
@@ -38,10 +45,10 @@
 			}
 			
 			//võib kasutaja teha
-			if(	$create_uname_error == "" && $create_pw_error == ""){
+			if(	$create_uname_error == "" && $create_pw_error == "" && $create_name_error == "" && create_radio_error == ""){
 				$password_hash = hash("sha512", $create_pw);
 				//käivitame funktsiooni
-				$create_response = $User->createUser($create_uname, $password_hash, $rights);
+				$create_response = $User->createUser($create_uname, $password_hash, $create_name, $rights);
 				header("Location:login.php");
 				//lõpetame php laadimise
 				exit();
@@ -180,6 +187,10 @@
 				<fieldset class="form-group">	
 					<label for="create_pw" style="color: white;">Parool</label><span class="error" style="color:red;"> <?php echo $create_pw_error?></span>
 					<input type="password" class="form-control" name="create_pw" placeholder="Parool" />
+				</fieldset>
+				<fieldset class="form-group">	
+					<label for="create_name" style="color: white;">Nimi</label><span class="error" style="color:red;"> <?php echo $create_name_error?></span>
+					<input type="text" class="form-control" name="create_name" placeholder="Nimi" />
 				</fieldset>
 				<div>
 					<form role="form" name="rights">
