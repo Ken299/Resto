@@ -92,7 +92,7 @@
 				
 				// Kontrollib, kas on vajalikud õigused
 				function rightCheck() {
-					if(<?php echo $_SESSION["rights"] ?> == 3){
+					if(<?php if(isset($_SESSION["rights"])){echo $_SESSION["rights"];}else{echo 999;}?> == 3){
 						return true;
 					} else {
 						return false;
