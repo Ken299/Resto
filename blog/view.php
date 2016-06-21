@@ -3,7 +3,7 @@
 	require_once("php/pdo_conf.php");
 	
 	try {
-		// Leiab kõrgeima ID postituste tabelis
+		// Gets the post with the highest ID
 		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID, MIN(post_ID) as minID FROM postitused");
 		$stmt->execute();
 		
@@ -11,9 +11,9 @@
 		
 		$stmt->closeCursor();
 		
-		// Kontrollib, et leht ei hakkaks tegema tööd kui on juba teada, et sellist ID pole olemas
+		//  A few checks to ensure no work is done, when the page doesn't exist
 		if(isset($_GET["id"]) && ($_GET["id"] <= $postTotal["maxID"]) && ($_GET["id"] >= $postTotal["minID"])){
-			// Leiab õige ID'ga postituse ning võtab sellelt info/sisu
+			// Finds the post with the matching ID and gets the contents
 			$stmt = $yhendus->query("SELECT * FROM postitused WHERE post_ID = " . $_GET["id"]);
 			$stmt->execute();
 			
@@ -33,7 +33,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Siia läheb posti tiitel -->
 		<title>Postitus</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/view.css">
@@ -46,18 +45,23 @@
 			var next;
 			
 			$(document).ready(function(){
+				// Parses the data
 				getSideBarPosts();
 				getBeforeAndAfter();
 				addSpecial();
 				
+				// Fills the elements with the necessary info
 				$("#cover").attr("src", _data.img);
 				$("#title").text(_data.pealkiri);
 				$("#autor").text(_data.autor);
 				$("#kuupaev").text(_data.kuupaev.slice(0,10));
 				$("#body_text").html(_data.sisu);
+				
+				// Checks if it's necessary to disable either button
 				disablePrev();
 				disableNext();
 				
+				// Click events for the various buttons
 				$("#btn_prev").click(function(){
 					window.location = "view.php?id=" + prev;
 				});				
@@ -71,9 +75,10 @@
 				});
 			});
 			
+			// Buttons for users with special privileges
 			function addSpecial() {
 				if(rightCheck() == true) {
-					$("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
+					//$("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
 					$("#special").append("<input type='button' id='btn_delete' value='Eemalda'>");
 					
 					$("#btn_delete").click(function(){
@@ -90,7 +95,7 @@
 					});		
 				}
 				
-				// Kontrollib, kas on vajalikud õigused
+				// Checks for the correct rights
 				function rightCheck() {
 					if(<?php if(isset($_SESSION["rights"])){echo $_SESSION["rights"];}else{echo 999;}?> == 3){
 						return true;
@@ -100,21 +105,21 @@
 				}
 			}
 			
-			// Disablib nupu eelnevale postitusele minekuks
+			// Disables the previous post button if the post's ID matches the minimum post ID found
 			function disablePrev() {
 				if(_data.post_ID == minID){
 					$("#btn_prev").attr("disabled", true);
 				}
 			}
 			
-			// Disablib nupu järgnevale postitusele minekuks
+			// Disables the next post button if the post's ID matches the maximum post ID found
 			function disableNext() {
 				if(_data.post_ID == maxID){
 					$("#btn_next").attr("disabled", true);
 				}
 			}
 			
-			// Võtab requestiga külgribale 
+			// Gets posts to populate the sidebar
 			function getSideBarPosts() {	
 				$.ajax({
 					type: "POST",
@@ -132,7 +137,6 @@
 				for (var i = 0; i < results.length; i++){
 					$("#side").append("<div class='otherArticle' id='"+results[i].post_ID+"'></div>");
 					$("#"+results[i].post_ID).append("<p>"+results[i].pealkiri+"</p>");
-					// Lisab click eventi, mille abil edastatakse id, et kuvada kogu postitust.
 					$("#"+results[i].post_ID).bind("click", "div", function(e) {
 						var target = $(e.target);
 						if (target.is("p") || target.is("h1")) {
@@ -142,6 +146,7 @@
 				}
 			}
 			
+			Gets the info of the blog posts submitted before and after the current one
 			function getBeforeAndAfter() {	
 				$.ajax({
 					type: "POST",
@@ -177,7 +182,7 @@
         <div class="col-md-8 col-md-offset-2" align="center" style="color: white; background-color: rgba(0, 0, 0, 0.81); border-radius: 50px;">
         <div id="fb-root"></div>
 		<script>
-			// Facebook API käivitamine
+			// Facebook API activation
 			(function(d, s, id) {
 				var js, fjs = d.getElementsByTagName(s)[0];
 				if (d.getElementById(id)) {
@@ -197,9 +202,9 @@
             <br><br><br>
 		</div>
 		<div id="special"></div>
-		<!-- Siia tuleb kogu postitus koos kaasneva infoga -->
+		<!-- This is where the post's contents go -->
 		<div id="post">
-			<!-- Sisu -->
+			<!-- Content -->
 			<div id="content">
 				<img id="cover" src="" style="max-width: 768px; width:100%;">
 				<h1 id="title"></h1>
@@ -210,9 +215,9 @@
 					
 				</div>
 			</div>
-			<!-- Siia alla lükkaks sotisiaalmeedia lingid. Vb tagid ka? -->
+			<!-- Social buttons -->
 			<div id="bottom">
-				<!-- Facebooki Like nupp -->
+				<!-- Facebooki Like button -->
 				<div class="fb-like" data-href="http://greeny.cs.tlu.ee/~ottismi/Resto/blog/view.php?id=<?php echo $_GET["id"] ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 			</div>
             <div style="" id="side">
