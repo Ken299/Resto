@@ -3,7 +3,7 @@
 	require_once("php/pdo_conf.php");
 	
 	try {
-		// Gets the post with the highest ID
+		// Leiab kõrgeima ID postituste tabelis
 		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID, MIN(post_ID) as minID FROM postitused");
 		$stmt->execute();
 		
@@ -11,9 +11,9 @@
 		
 		$stmt->closeCursor();
 		
-		// A few checks to ensure no work is done, when the page doesn't exist
+		// Kontrollib, et leht ei hakkaks tegema tööd kui on juba teada, et sellist ID pole olemas
 		if(isset($_GET["id"]) && ($_GET["id"] <= $postTotal["maxID"]) && ($_GET["id"] >= $postTotal["minID"])){
-			// Finds the post with the matching ID and gets the contents
+			// Leiab õige ID'ga postituse ning võtab sellelt info/sisu
 			$stmt = $yhendus->query("SELECT * FROM postitused WHERE post_ID = " . $_GET["id"]);
 			$stmt->execute();
 			
@@ -33,12 +33,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- Siia läheb posti tiitel -->
 		<title>Postitus</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="css/view.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script>
-			// Parses the data
 			var _data = JSON.parse(<?php echo json_encode($result); ?>)[0];
 			var maxID = JSON.parse(<?php echo $postTotal['maxID'] ?>);
 			var minID = JSON.parse(<?php echo $postTotal['minID'] ?>);
@@ -50,18 +50,14 @@
 				getBeforeAndAfter();
 				addSpecial();
 				
-				// Fills the elements with the necessary info
 				$("#cover").attr("src", _data.img);
 				$("#title").text(_data.pealkiri);
 				$("#autor").text(_data.autor);
 				$("#kuupaev").text(_data.kuupaev.slice(0,10));
 				$("#body_text").html(_data.sisu);
-				
-				// Checks if it's necessary to disable either button
 				disablePrev();
 				disableNext();
 				
-				// Click events for the various buttons
 				$("#btn_prev").click(function(){
 					window.location = "view.php?id=" + prev;
 				});				
@@ -75,10 +71,9 @@
 				});
 			});
 			
-			// Buttons for users with special privileges
 			function addSpecial() {
 				if(rightCheck() == true) {
-					// $("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
+					$("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
 					$("#special").append("<input type='button' id='btn_delete' value='Eemalda'>");
 					
 					$("#btn_delete").click(function(){
@@ -95,7 +90,7 @@
 					});		
 				}
 				
-				// Checks for the correct rights
+				// Kontrollib, kas on vajalikud õigused
 				function rightCheck() {
 					if(<?php if(isset($_SESSION["rights"])){echo $_SESSION["rights"];}else{echo 999;}?> == 3){
 						return true;
@@ -105,21 +100,21 @@
 				}
 			}
 			
-			// Disables the previous post button if the post's ID matches the minimum post ID found
+			// Disablib nupu eelnevale postitusele minekuks
 			function disablePrev() {
 				if(_data.post_ID == minID){
 					$("#btn_prev").attr("disabled", true);
 				}
 			}
 			
-			// Disables the next post button if the post's ID matches the maximum post ID found
+			// Disablib nupu järgnevale postitusele minekuks
 			function disableNext() {
 				if(_data.post_ID == maxID){
 					$("#btn_next").attr("disabled", true);
 				}
 			}
 			
-			// Gets posts to populate the sidebar
+			// Võtab requestiga külgribale 
 			function getSideBarPosts() {	
 				$.ajax({
 					type: "POST",
@@ -137,6 +132,7 @@
 				for (var i = 0; i < results.length; i++){
 					$("#side").append("<div class='otherArticle' id='"+results[i].post_ID+"'></div>");
 					$("#"+results[i].post_ID).append("<p>"+results[i].pealkiri+"</p>");
+					// Lisab click eventi, mille abil edastatakse id, et kuvada kogu postitust.
 					$("#"+results[i].post_ID).bind("click", "div", function(e) {
 						var target = $(e.target);
 						if (target.is("p") || target.is("h1")) {
@@ -146,7 +142,6 @@
 				}
 			}
 			
-			// Gets the info of the blog posts submitted before and after the current one
 			function getBeforeAndAfter() {	
 				$.ajax({
 					type: "POST",
@@ -182,7 +177,7 @@
         <div class="col-md-8 col-md-offset-2" align="center" style="color: white; background-color: rgba(0, 0, 0, 0.81); border-radius: 50px;">
         <div id="fb-root"></div>
 		<script>
-			// Facebook API activation
+			// Facebook API käivitamine
 			(function(d, s, id) {
 				var js, fjs = d.getElementsByTagName(s)[0];
 				if (d.getElementById(id)) {
@@ -202,9 +197,9 @@
             <br><br><br>
 		</div>
 		<div id="special"></div>
-		<!-- This is where the post's contents go -->
+		<!-- Siia tuleb kogu postitus koos kaasneva infoga -->
 		<div id="post">
-			<!-- Content -->
+			<!-- Sisu -->
 			<div id="content">
 				<img id="cover" src="" style="max-width: 768px; width:100%;">
 				<h1 id="title"></h1>
@@ -215,13 +210,15 @@
 					
 				</div>
 			</div>
-			<!-- Social buttons -->
+			<!-- Siia alla lükkaks sotisiaalmeedia lingid. Vb tagid ka? -->
 			<div id="bottom">
-				<!-- Facebooki Like button -->
+				<!-- Facebooki Like nupp -->
 				<div class="fb-like" data-href="http://greeny.cs.tlu.ee/~ottismi/Resto/blog/view.php?id=<?php echo $_GET["id"] ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
 			</div>
             <div style="" id="side">
+                
             <h3>Vaata teisi postitusi</h3>
+                <br><br><br>
 		</div>
 		</div>
             <br><br>
