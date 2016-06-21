@@ -1,4 +1,5 @@
 <?php
+	// Script for deleting a post
 	require_once("pdo_conf.php");
 	
 	try {

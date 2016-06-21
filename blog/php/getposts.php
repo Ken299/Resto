@@ -2,7 +2,7 @@
 	require_once("pdo_conf.php");
 	
 	try {
-		// Leiab kõrgeima ID postituste tabelis
+		// Finds the post with the highest ID
 		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID FROM postitused");
 		$stmt->execute();
 		
@@ -12,7 +12,7 @@
 		$stmt->closeCursor();
 		
 		if (isset($_POST['pagenr'])){
-			// Otsib välja vajalikud postitused olenevalt lehest.
+			// Gets posts depending on the page number
 			$currPage = $_POST['pagenr'] - 1;
 			$startIndex = $currPage * 5;
 	
@@ -25,9 +25,9 @@
 			$result = $stmt->fetchAll();
 			echo json_encode($result);
 		} else if (isset($_POST['currPost'])){
-			// Otsib välja kuni kolm eelnevat postitust.
+			// Finds up to the determined amount of previous posts
 			$currPost = $_POST['currPost'];
-			$postAmount = 3; // Mitu eelnevat postitust leida
+			$postAmount = 3; // How many posts to find
 			
 			$stmt = $yhendus->query("SELECT * FROM postitused
 									 WHERE post_ID < '$currPost'
@@ -41,10 +41,10 @@
 			
 			$stmt->closeCursor();
 			
-			// Juhul, jääb puudu vanematest artiklitest, hakkab uusi võtma
+			// If thereis a lack of older posts, it populates it with newer ones
 			if (count($result) < $postAmount){
 				$postAmount = $postAmount - count($result);
-				$needed = $postAmount - count($result); // Mitu artiklit on juurde vaja leida
+				$needed = $postAmount - count($result); // How many posts are still needed
 				$stmt = $yhendus->query("SELECT * FROM postitused 
 						 WHERE post_ID <= '$postTotal'
 						 AND post_ID > '$currPost'
