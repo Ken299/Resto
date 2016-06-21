@@ -167,12 +167,14 @@
 	</head>
     
     		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+        		
+
 
     
 	
-	<body>
+	<body class=bloggg>
 		
-        <div class="col-md-8 col-md-offset-2" align="center" style="background-color: rgba(0,0,0, .3); border-radius: 20px;">
+        <div class="col-md-8 col-md-offset-2" align="center" style="color: white; background-color: rgba(0, 0, 0, 0.81); border-radius: 50px;">
         <div id="fb-root"></div>
 		<script>
 			// Facebook API käivitamine
@@ -189,9 +191,9 @@
             
             <br><br>
 		<div id="nav">
-			<input type="button" class="btn btn-restoran" id="btn_prev" value="Eelmine">
-			<input type="button" class="btn btn-restoran" id="btn_next" value="Järgmine">
-			<input type="button" class="btn btn-restoran" id="btn_back" value="Tagasi">
+			<input type="button" class= "btn-blogview" id="btn_prev" value="Eelmine">
+			<input type="button" class="btn-blogview" id="btn_next" value="Järgmine">
+			<input type="button" class="btn-blogview" id="btn_back" value="Tagasi">
             <br><br><br>
 		</div>
 		<div id="special"></div>
