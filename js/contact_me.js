@@ -1,6 +1,6 @@
 $(function() {
 
-    $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
+    $("#bronniee input,#bronniee textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function($form, event, errors) {
             // additional error messages or events
@@ -11,20 +11,28 @@ $(function() {
             var name = $("input#name").val();
             var email = $("input#email").val();
             var phone = $("input#phone").val();
-            var message = $("textarea#message").val();
+			var arv = $("input#arv").val()
+			var kuupaev = $("input#kuupaev").val()
+			var tunnid = $("option#tunnid").val()
+			var minutid = $("option#minutid").val()
+            var lisainfo = $("textarea#lisainfo").val();
             var firstName = name; // For Success/Failure Message
             // Check for white space in name for Success/Fail message
             if (firstName.indexOf(' ') >= 0) {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
             $.ajax({
-                url: "././mail/contact_me.php",
+                url: "../mail/contact_me.php",
                 type: "POST",
                 data: {
                     name: name,
                     phone: phone,
                     email: email,
-                    message: message
+					arv: arv,
+					kuupaev: kuupaev,
+					tunnid: tunnid,
+					minutid: minutid,
+                    lisainfo: lisainfo
                 },
                 cache: false,
                 success: function() {
@@ -38,7 +46,7 @@ $(function() {
                         .append('</div>');
 
                     //clear all fields
-                    $('#contactForm').trigger("reset");
+                    $('#bronni').trigger("reset");
                 },
                 error: function() {
                     // Fail message
@@ -48,7 +56,7 @@ $(function() {
                     $('#success > .alert-danger').append("<strong>Vabandust " + firstName + ", ei saanud hetkel serveriga ühendust!");
                     $('#success > .alert-danger').append('</div>');
                     //clear all fields
-                    $('#contactForm').trigger("reset");
+                    $('#bronni').trigger("reset");
                 },
             })
         },
