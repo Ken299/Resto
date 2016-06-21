@@ -28,6 +28,7 @@
 				getMaxPosts();
 			});
 			
+			// Sets up the pagination plugin
 			function paginationSetup() {
 				$(".pagerr").pagination({
 					items: 6,
@@ -39,7 +40,7 @@
 						$(".pagerr").pagination("updateItems", maxPosts);
 					},
 					onPageClick: function(pageNumber) {
-						// Kole lahendus
+						// Clumsy solution for displaying the necessary posts depending on the page
 						pageNr = pageNumber;
 						$("#main").empty();
 						getPosts(pageNr);
@@ -47,7 +48,7 @@
 				});
 			};
 			
-			// Võtab andmebaasist olemasolevad postitused.
+			// Gets posts from the SQL database
 			function getPosts(_pageNr) {	
 				$.ajax({
 					type: "POST",
@@ -59,6 +60,7 @@
 				});
 			}
 			
+			// Gets the current total amount of posts
 			function getMaxPosts() {
 				$.ajax({
 					url: "php/getPostTotal.php",
@@ -69,16 +71,18 @@
 				});
 			}
 			
-			// Tegeleb saadud andmetega edasi 
+			// Handles the data
 			function handleData(data) {
 				var results = jQuery.parseJSON(data);
 				for (var i = 0; i < results.length; i++){
+					// Generates the classes for each post
 					$("#main").append("<div class='post' id='"+results[i].post_ID+"'></div>");
 					$("#"+results[i].post_ID).append("<img src='"+results[i].img+"' height='300'>");
 					$("#"+results[i].post_ID).append("<h1>"+results[i].pealkiri+"</h1>");
-					// Lisab click eventi, mille abil edastatakse id, et kuvada kogu postitust.
+					// Adds a click event, which passes the post's ID in order to show the full contents of the post
 					$("#"+results[i].post_ID).bind("click", "div", function(e) {
 						var target = $(e.target);
+						// The redirecting
 						if (target.is("img") || target.is("h1")) {
 							window.location = "view.php?id=" + target.parent().attr("id") ;
 						} else {
@@ -121,17 +125,17 @@
       
     </nav>
 	<br><br><br><br><br><br>
-		<!-- Lehtede kuvamiseks. Igal lehel on teatud hulk postitusi -->
 		<div class="col-md-8 col-md-offset-2" align="center">
-		<div id="pager" class="pagerr">
+			<!-- The element which the pagination plugin gets attached to -->
+			<div id="pager" class="pagerr">
 
-		</div>
-		<!-- Siia lisatakse olemasolevad postitused -->
-		<div id="main"></div>
-		
-		<div class="pagerr">
+			</div>
+			<!-- This is where each post gets appended to -->
+			<div id="main"></div>
+			
+			<div class="pagerr">
 
-		</div>
+			</div>
 		</div>
 	</body>
 	<script src="../js/classie.js"></script>

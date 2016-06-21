@@ -17,7 +17,7 @@
 		
 		$stmt->closeCursor();
 		
-		// Leiab kõrgeima ID postituste tabelis
+		// Gets the post with the highest ID
 		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID FROM postitused");
 		$stmt->execute();
 		

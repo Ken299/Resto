@@ -2,7 +2,7 @@
 	require_once("pdo_conf.php");
 	
 	try {
-		// Leiab kõrgeima ID postituste tabelis
+		// Finds the post with the highest ID
 		$stmt = $yhendus->query("SELECT MAX(post_ID) as maxID FROM postitused");
 		$stmt->execute();
 		
@@ -13,7 +13,7 @@
 		
 		
 		if (isset($_POST['currPost'])){
-			// Otsib välja tabelis eelneva ja järgneva postituste ID'd
+			// Finds the IDs of the "adjacent" blog posts
 			$currPost = $_POST['currPost'];
 			
 			$stmt = $yhendus->query("(SELECT * FROM postitused
