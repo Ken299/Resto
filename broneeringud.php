@@ -1,12 +1,9 @@
 <?php
 	require_once('php/functions.php');
-	//if(isset($_SESSION["rights"])){
 	if(($_SESSION["rights"])!=2){
-		// kui on,suunan data lehele
 		header("Location: login.php");
 		exit();
 	}
-	//}
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +19,7 @@
 
 	<script>
 		$(document).ready(function(){
+			//Broneeringu muutuse kinnituse ajax call
 			$(".confirmBtn").click(function(event){
 				request = $.ajax({
 					url: "php/confirm.php",
@@ -33,8 +31,6 @@
 				
 				request.done(function (response, textStatus, jqXHR){
 					window.location.reload();
-					//$("#bronniTabel").load("admin.php #bronniTabel");
-					console.log(response);
 				});
 			});
 		});
@@ -362,7 +358,6 @@
 					}
 				});
 				request.done(function(response, textStatus, jqXHR){
-					//$("").html("");
 					$("#bronniTabel").load("admin.php");
 					console.log(response);
 				});
