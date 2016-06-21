@@ -78,7 +78,7 @@
 			// Buttons for users with special privileges
 			function addSpecial() {
 				if(rightCheck() == true) {
-					$("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
+					// $("#special").append("<input type='button' id='btn_edit' value='Redigeeri'>");
 					$("#special").append("<input type='button' id='btn_delete' value='Eemalda'>");
 					
 					$("#btn_delete").click(function(){
