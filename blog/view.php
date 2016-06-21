@@ -146,7 +146,7 @@
 				}
 			}
 			
-			Gets the info of the blog posts submitted before and after the current one
+			// Gets the info of the blog posts submitted before and after the current one
 			function getBeforeAndAfter() {	
 				$.ajax({
 					type: "POST",
